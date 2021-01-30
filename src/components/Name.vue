@@ -1,8 +1,13 @@
 <template>
-  <span class="name" v-if="loaded">{{
-    getValueByLanguage(internalName.names)[0].name
-  }}</span>
-  <spinner v-else />
+  <transition name="fade" mode="out-in">
+    <span class="name" v-if="loaded">{{
+      getValueByLanguage(internalName.names)[0].name
+    }}</span>
+    <span v-else>
+      <Spinner class="position-absolute" />
+      <span>&nbsp;</span>
+    </span>
+  </transition>
 </template>
 
 <script lang="ts">

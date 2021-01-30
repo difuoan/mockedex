@@ -27,7 +27,10 @@
           }}
         </div>
       </div>
-      <Spinner v-else />
+      <div v-else>
+        <Spinner class="position-absolute" />
+        <span>&nbsp;</span>
+      </div>
     </transition>
   </div>
 </template>
