@@ -5,7 +5,8 @@ export default createStore({
     limit: 4,
     offset: 0,
     id: 1,
-    apiUrl: "https://pokeapi.co/api/v2/pokemon"
+    apiUrl: "https://pokeapi.co/api/v2",
+    language: 4
   },
   mutations: {},
   actions: {},
