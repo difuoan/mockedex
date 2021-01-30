@@ -8,7 +8,7 @@ declare module "@vue/runtime-core" {
     offset: number;
     id: number;
     apiUrl: string;
-    language: number;
+    language: string;
   }
 
   // provide typings for `this.$store`

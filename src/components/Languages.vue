@@ -7,20 +7,23 @@
     >
       <option
         v-for="language in languages"
-        :value="language.index"
-        :key="`language_${language.id}`"
-        >{{ language.name }}</option
+        :value="language"
+        :key="`language_${language}`"
+        >{{ language }}</option
       >
     </select>
   </div>
 </template>
 
 <script lang="ts">
-import languages from "../mixins/languages";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Languages",
-  mixins: [languages]
+  data() {
+    return {
+      languages: ["fr", "de", "es", "it", "en", "ja"]
+    };
+  }
 });
 </script>

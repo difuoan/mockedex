@@ -6,7 +6,7 @@ export default createStore({
     offset: 0,
     id: 1,
     apiUrl: "https://pokeapi.co/api/v2",
-    language: 4
+    language: "fr"
   },
   mutations: {},
   actions: {},

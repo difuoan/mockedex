@@ -51,6 +51,14 @@ export default defineComponent({
         this.$store.state.offset = this.$store.state.id - 1;
       }
       this.$router.push({ name: "Pokedex" });
+    },
+    // eslint-disable-next-line
+    getValueByLanguage(array: Array<any>) {
+      return array.filter(element => {
+        return (
+          String(element.language.name) === String(this.$store.state.language)
+        );
+      });
     }
   }
 });

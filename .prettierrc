@@ -1,0 +1,7 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "prettier.trailingComma": "none",
+  "prettier.jsxBracketSameLine": false,
+  "prettier.arrowParens": "always"
+}

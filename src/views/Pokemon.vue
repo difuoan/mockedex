@@ -2,19 +2,19 @@
   <div class="pokemon text-center position-relative">
     <transition name="fade" mode="out-in">
       <div v-if="loading === false" class="text-left">
-        <div class="container bg-white rounded border">
-          <div class="row pb-3" v-if="pokemon.name">
-            <div class="col-12 col-md-6 col-lg-4 p-3 text-center">
+        <div class="container bg-white rounded border p-3">
+          <div class="row" v-if="pokemon.name">
+            <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <h3 class="mb-0">
                 <small>#{{ pad(String(pokemon.id), 4, "0", true) }}</small>
-                {{ pokemon.species.names[Number($store.state.language)].name }}
+                {{ getValueByLanguage(pokemon.species.names)[0].name }}
               </h3>
               <div class="mt-1">
                 <Types :types="pokemon.types" />
               </div>
               <div class="position-relative">
                 <button
-                  class="imageButton left btn btn-outline-secondary"
+                  class="imageButton left btn btn-outline-secondary position-absolute top-50"
                   @click="nextImage()"
                   title="Turn pokemon around"
                 >
@@ -25,7 +25,7 @@
                   class="px-4 mx-3"
                 />
                 <button
-                  class="imageButton right btn btn-outline-secondary"
+                  class="imageButton right btn btn-outline-secondary position-absolute top-50"
                   @click="nextImage()"
                   title="Turn pokemon around"
                 >
@@ -50,7 +50,7 @@
                 {{ isFemale() ? "♀" : "♂" }}
               </button>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-3 text-center">
+            <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <div class="bg-primary border rounded container py-3">
                 <div class="row">
                   <div class="col">
@@ -61,25 +61,16 @@
                     <h5 class="text-white">Weight</h5>
                     <b>{{ pokemon.weight / 100 }} kg</b>
                   </div>
-                  <div class="col">
-                    <h5 class="text-white">Experience</h5>
-                    <b>{{ pokemon.base_experience }} xp</b>
-                  </div>
                 </div>
                 <hr />
-                <h5 class="text-white">Abilities</h5>
-                <span
-                  v-for="(ability, index) in pokemon.abilities"
-                  :key="`pokemon_ability_${ability.ability.name}`"
-                  >{{ ability.ability.name
-                  }}{{
-                    index + 2 >= pokemon.abilities.length
-                      ? index + 1 >= pokemon.abilities.length
-                        ? ""
-                        : " and "
-                      : ", "
-                  }}</span
-                >
+                <div class="row">
+                  <div class="col">
+                    <h5 class="text-white">Genus</h5>
+                    <b>{{
+                      getValueByLanguage(pokemon.species.genera)[0].genus
+                    }}</b>
+                  </div>
+                </div>
               </div>
               <div
                 v-if="pokemon.held_items.length > 0"
@@ -96,10 +87,18 @@
                 >
               </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-3 text-center">
-              <Stats :stats="pokemon.stats" />
+            <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
+              <Stats :stats="pokemon.stats" class="mb-3" />
+              <Abilities :abilities="pokemon.abilities" />
             </div>
-            <div class="col-12">
+            <div class="col-12 mb-3">
+              <Descriptions
+                :flavourTexts="
+                  getValueByLanguage(pokemon.species.flavor_text_entries)
+                "
+              />
+            </div>
+            <div class="col-12 mb-3">
               <Moves :moves="pokemon.moves" />
             </div>
           </div>
@@ -120,6 +119,8 @@ import Image from "../components/Image.vue";
 import Stats from "../components/Stats.vue";
 import Moves from "../components/Moves.vue";
 import Types from "../components/Types.vue";
+import Abilities from "../components/Abilities.vue";
+import Descriptions from "../components/Descriptions.vue";
 
 export default defineComponent({
   name: "Pokemon",
@@ -134,7 +135,9 @@ export default defineComponent({
     Image,
     Stats,
     Moves,
-    Types
+    Types,
+    Abilities,
+    Descriptions
   },
   props: {
     id: {
@@ -282,8 +285,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .imageButton {
-  position: absolute;
-  top: 50%;
   z-index: 999;
 
   &.left {

@@ -1,7 +1,7 @@
 <template>
   <div
     @click="movesAreOpen = !movesAreOpen"
-    class="bg-secondary border rounded container py-3 mt-3 moves cursor-pointer"
+    class="bg-secondary border rounded container py-3 moves cursor-pointer"
   >
     <h5 class="text-white text-center m-0">
       Moves {{ movesAreOpen ? "▲" : "▼" }}
