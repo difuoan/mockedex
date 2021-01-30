@@ -1,4 +1,6 @@
+// BOOTSTRAP IMPORTS START (vue-bootstrap isn't ready yet, sadly...) ///////////////////////////////////////////
 @import "../../../node_modules/bootstrap/scss/functions";
+// inject our own variables based on the bootstrap-variables (also affecting variables that are based on the changed variables) ----------------------
 @import "variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
 @import "../../../node_modules/bootstrap/scss/root";
@@ -35,31 +37,55 @@
 @import "../../../node_modules/bootstrap/scss/spinners";
 @import "../../../node_modules/bootstrap/scss/utilities";
 @import "../../../node_modules/bootstrap/scss/print";
+// BOOTSTRAP IMPORTS END ///////////////////////////////////////////
 
-.clear {
-  clear: both;
-}
+// ACTUAL STYLES START //////////////////////////////////////////////////
 body,
 html {
   color: $gray-800;
   background: $gray-800;
 }
+// ACTUAL STYLES END //////////////////////////////////////////////////////
+
+// HELPERS START //////////////////////////////////////////////////////////
+// clear / float ---------------------------------
+.clear {
+  clear: both;
+}
+// text ---------------------------------
 .text-bold {
   font-weight: bold;
 }
+// cursor ---------------------------------
 .cursor-pointer {
   cursor: pointer;
 }
 .cursor-help {
   cursor: help;
 }
-.mainSpinner {
-  top: 0;
+// transition ---------------------------------
+.transition-025 {
+  transition: all 0.25s ease-in-out;
+}
+// visibility (opacity) ---------------------------------
+.opacity-025 {
+  opacity: 0.25;
+}
+.opacity-05 {
+  opacity: 0.5;
+}
+.opacity-1 {
+  opacity: 1;
+}
+// position (absolute) ---------------------------------
+.top-50,
+.right-0,
+.top-0,
+.left-50 {
   position: absolute;
 }
-.top-50,
-.right-0 {
-  position: absolute;
+.top-0 {
+  top: 0;
 }
 .top-50 {
   top: 50%;
@@ -68,7 +94,13 @@ html {
 .right-0 {
   right: 0;
 }
+.left-50 {
+  left: 50%;
+}
+// HELPERS END //////////////////////////////////////////////////////////
 
+// ANIMATIONS START //////////////////////////////////////////////
+// shakes an element (error) ---------------------------------
 .shake {
   animation: shake 0.5s linear;
 }
@@ -92,7 +124,7 @@ html {
     -webkit-transform: translateX(0);
   }
 }
-
+// bounces an element (hovered) ---------------------------------
 .bounce {
   animation-name: bounce;
   animation-duration: 1s;
@@ -113,7 +145,7 @@ html {
     transform: translateY(-15px);
   }
 }
-
+// slides an element from 0 to 100% height (grow) ---------------------------------
 .slideUpOnLoad {
   animation: slideUpOnLoad 0.5s linear;
 }
@@ -125,7 +157,7 @@ html {
     transform: scaleY(1);
   }
 }
-
+// simple all-purpose fade in animation ---------------------------------
 .fadeIn {
   animation: fadeInAnimation ease 0.5s;
   animation-iteration-count: 1;
@@ -139,7 +171,7 @@ html {
     opacity: 1;
   }
 }
-
+// vue specific transition-classes (for the <transition> element) ---------------------------------
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.25s;
@@ -150,8 +182,8 @@ html {
 .fade-leave-active {
   transition: opacity 0.25s ease;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
+// ANIMATIONS END //////////////////////////////////////////////
