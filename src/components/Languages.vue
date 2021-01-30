@@ -18,12 +18,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-// TODO: also add languages for the interface-elements
 export default defineComponent({
   name: "Languages",
   data() {
     return {
-      languages: ["fr", "de", "es", "it", "en", "ja"]
+      languages: ["fr", "de", "es", "en", "it"]
     };
   }
 });
