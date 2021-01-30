@@ -104,10 +104,6 @@ export default defineComponent({
     transition: all 0.25s ease-in-out;
     opacity: 0.25;
     height: 100%;
-    &.left {
-    }
-    &.right {
-    }
   }
 }
 </style>
