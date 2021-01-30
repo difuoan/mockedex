@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Pokedex from "../views/Pokedex.vue";
 import Pokemon from "../views/Pokemon.vue";
 import PokedexWrapper from "../views/PokedexWrapper.vue";
@@ -8,7 +8,7 @@ import PokemonWrapper from "../views/PokemonWrapper.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/pokedex",
+    redirect: "pokedex",
     component: PokedexWrapper,
     children: [
       {
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 });
 
