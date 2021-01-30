@@ -1,10 +1,10 @@
 <template>
   <div
-    class="descriptions bg-primary rounded text-center p-2 cursor-pointer container"
+    class="descriptions bg-primary rounded text-center cursor-pointer container p-0 m-0"
     @click.self="nextDescription()"
   >
-    <div class="row">
-      <div class="col-1">
+    <div class="row p-0 m-0">
+      <div class="col-1 p-0 m-0 text-left">
         <button
           class="left btn btn-outline-light d-inline-block"
           @click.self="previousDescription()"
@@ -14,19 +14,22 @@
         </button>
       </div>
       <div class="col">
-        <h5 class="text-white" @click.self="nextDescription()">
+        <h5
+          class="text-white d-inline-block mt-3"
+          @click.self="nextDescription()"
+        >
           Description
         </h5>
         <p class="p-0 m-0" @click.self="nextDescription()">
           {{ flavourTextToDisplay.flavor_text }}
         </p>
-        <small
+        <small class="d-inline-block mb-3"
           >#{{ index + 1 }}/{{ flavourTexts.length }} ({{
             flavourTextToDisplay.version.name
           }})</small
         >
       </div>
-      <div class="col-1">
+      <div class="col-1 p-0 m-0 text-right">
         <button
           class="right btn btn-outline-light d-inline-block"
           @click.self="nextDescription()"
