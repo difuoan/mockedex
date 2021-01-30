@@ -4,6 +4,7 @@ import Pokemon from "../views/Pokemon.vue";
 import PokedexWrapper from "../views/PokedexWrapper.vue";
 import PokemonWrapper from "../views/PokemonWrapper.vue";
 
+// TODO: there is an error in the live-version: when accessing the base url without a / vue can't seem to find an index
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
