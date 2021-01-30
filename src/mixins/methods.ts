@@ -4,10 +4,15 @@ import "../mixins/interfaces";
 export default defineComponent({
   methods: {
     async loadPokemon(id = "1") {
-      let result = null;
-      result = await this.axios.get(`${this.$store.state.apiUrl}/${id}`);
-      const data = result.data;
-      return data as Pokemon;
+      const response = await this.axios.get(
+        `${this.$store.state.apiUrl}/pokemon/${id}`
+      );
+      const pokemon = response.data;
+      const pokemonSpecies = await this.axios.get(
+        `${this.$store.state.apiUrl}/pokemon-species/${id}`
+      );
+      pokemon.species = pokemonSpecies.data;
+      return pokemon as Pokemon;
     },
     pad(
       stringToPad: string,

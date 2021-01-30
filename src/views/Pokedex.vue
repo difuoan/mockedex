@@ -128,13 +128,13 @@ export default defineComponent({
     async loadPokemons() {
       this.loading = true;
       const result = await this.axios.get(
-        `${this.$store.state.apiUrl}?limit=${this.$store.state.limit}&offset=${this.$store.state.offset}`
+        `${this.$store.state.apiUrl}/pokemon?limit=${this.$store.state.limit}&offset=${this.$store.state.offset}`
       );
       const urlArray = result.data.results.map(
         (result: { name: string }) => result.name
       );
       const promiseArray = urlArray.map((name: string) =>
-        this.axios.get(`${this.$store.state.apiUrl}/${name}`)
+        this.axios.get(`${this.$store.state.apiUrl}/pokemon/${name}`)
       ) as Array<AxiosPromise>;
       this.axios.all(promiseArray).then((responses: Array<AxiosResponse>) => {
         this.pokemons = responses.map(
@@ -155,7 +155,7 @@ export default defineComponent({
     async search() {
       try {
         const result = await this.axios.get(
-          `${this.$store.state.apiUrl}/${String(
+          `${this.$store.state.apiUrl}/pokemon/${String(
             this.pokemonToSearch
           ).toLowerCase()}`
         );

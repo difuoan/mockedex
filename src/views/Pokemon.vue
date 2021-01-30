@@ -7,7 +7,7 @@
             <div class="col-12 col-md-6 col-lg-4 p-3 text-center">
               <h3 class="mb-0">
                 <small>#{{ pad(String(pokemon.id), 4, "0", true) }}</small>
-                {{ pokemon.name }}
+                {{ pokemon.species.names[Number($store.state.language)].name }}
               </h3>
               <div class="mt-1">
                 <Types :types="pokemon.types" />
