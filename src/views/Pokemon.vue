@@ -6,8 +6,10 @@
           <div class="row" v-if="pokemon.name">
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <h3 class="mb-0">
-                <small>#{{ pad(String(pokemon.id), 4, "0", true) }}</small>
-                {{ getValueByLanguage(pokemon.species.names)[0].name }}
+                <small
+                  >#{{ pad(String(pokemon.id), 4, "0", true) }}&nbsp;</small
+                >
+                <Name :name="pokemon.name" />
               </h3>
               <div class="mt-1">
                 <Types :types="pokemon.types" />
@@ -76,6 +78,7 @@ import Descriptions from "../components/Descriptions.vue";
 import PokemonImage from "../components/PokemonImage.vue";
 import Spinner from "../components/Spinner.vue";
 import Items from "../components/Items.vue";
+import Name from "../components/Name.vue";
 
 export default defineComponent({
   name: "Pokemon",
@@ -93,7 +96,8 @@ export default defineComponent({
     Descriptions,
     PokemonImage,
     Spinner,
-    Items
+    Items,
+    Name
   },
   props: {
     id: {

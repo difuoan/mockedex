@@ -22,8 +22,11 @@
                 />
                 <div class="card-body pt-0">
                   <h5 class="card-title p-0 text-bold">
-                    <small>id:</small> {{ pokemon.name }}
+                    <Name :name="pokemon.name" />
                   </h5>
+                  <small
+                    >id: <b>{{ pokemon.name }}</b></small
+                  >
                   <Types :types="pokemon.types" />
                 </div>
               </div>
@@ -92,6 +95,7 @@ import Image from "../components/Image.vue";
 import Types from "../components/Types.vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
+import Name from "../components/Name.vue";
 
 export default defineComponent({
   name: "Pokedex",
@@ -106,7 +110,8 @@ export default defineComponent({
   components: {
     Image,
     Types,
-    Spinner
+    Spinner,
+    Name
   },
   mixins: [methods],
   async mounted() {
