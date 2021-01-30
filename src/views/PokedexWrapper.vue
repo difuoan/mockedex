@@ -24,7 +24,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Type in the name or id of a pokémon to search"
+            placeholder="# || id"
             aria-label="pokémon to search"
             aria-describedby="pokesearch"
             @keydown.enter="search()"
@@ -75,7 +75,9 @@ export default defineComponent({
         return false;
       }
       try {
-        const pokemon = await this.loadPokemon(String(this.pokemonToSearch));
+        const pokemon = await this.loadPokemon(
+          String(this.pokemonToSearch).replace(/^0+/g, "") // replace leading zeros
+        );
         this.$store.state.id = pokemon.id;
         this.$router.push({ name: "Pokemon", params: { id: pokemon.id } });
       } catch (error) {

@@ -22,7 +22,7 @@
                 />
                 <div class="card-body pt-0">
                   <h5 class="card-title p-0 text-bold">
-                    {{ pokemon.name }}
+                    <small>id:</small> {{ pokemon.name }}
                   </h5>
                   <Types :types="pokemon.types" />
                 </div>
