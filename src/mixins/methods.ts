@@ -1,5 +1,12 @@
 import { defineComponent } from "vue";
 import "../mixins/interfaces";
+import { AxiosPromise, AxiosResponse } from "axios";
+interface Ability {
+  ability: {
+    name: string;
+    url: string;
+  };
+}
 
 export default defineComponent({
   methods: {
@@ -11,7 +18,14 @@ export default defineComponent({
       const pokemonSpecies = await this.axios.get(
         `${this.$store.state.apiUrl}/pokemon-species/${id}`
       );
+      const abilitiesPromises: Array<AxiosPromise> = pokemon.abilities.map(
+        (ability: Ability) => this.axios.get(ability.ability.url)
+      );
+      const abilities: Array<AxiosResponse> = await this.axios.all(
+        abilitiesPromises
+      );
       pokemon.species = pokemonSpecies.data;
+      pokemon.abilities = abilities.map(response => response.data);
       return pokemon as Pokemon;
     },
     pad(

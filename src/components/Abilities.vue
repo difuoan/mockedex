@@ -3,13 +3,15 @@
     <h5 class="text-white">Abilities</h5>
     <span
       v-for="(ability, index) in abilities"
-      :key="`ability_${ability.ability.name}`"
-      >{{ ability.ability.name
+      :key="`ability_${ability.name}`"
+      class="cursor-help"
+      :title="getValueByLanguage(ability.flavor_text_entries)[0].flavor_text"
+      >{{ getValueByLanguage(ability.names)[0].name
       }}{{
         index + 2 >= abilities.length
           ? index + 1 >= abilities.length
             ? ""
-            : " and "
+            : " & "
           : ", "
       }}</span
     >
@@ -17,10 +19,12 @@
 </template>
 
 <script lang="ts">
+import methods from "../mixins/methods";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Abilities",
+  mixins: [methods],
   props: {
     abilities: {
       type: Array,
