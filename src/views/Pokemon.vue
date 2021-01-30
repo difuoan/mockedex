@@ -40,24 +40,11 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <Stats :stats="pokemon.stats" class="mb-3" />
-              <div
+              <Items
+                :key="$route.fullPath"
+                :items="pokemon.held_items"
                 v-if="pokemon.held_items.length > 0"
-                class="bg-white border rounded p-3"
-              >
-                <b>Item{{ pokemon.held_items.length > 1 ? "s" : "" }}:</b>
-                <span
-                  v-for="(item, index) in pokemon.held_items"
-                  :key="`pokemon_item_${item.item.name}`"
-                  >&nbsp;{{ item.item.name
-                  }}{{
-                    index + 2 >= pokemon.held_items.length
-                      ? index + 1 >= pokemon.held_items.length
-                        ? ""
-                        : " and"
-                      : ", "
-                  }}</span
-                >
-              </div>
+              />
             </div>
             <div class="col-12 mb-3">
               <Descriptions
@@ -72,9 +59,7 @@
           </div>
         </div>
       </div>
-      <div v-else class="mainSpinner spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+      <Spinner v-else class="top-0" />
     </transition>
   </div>
 </template>
@@ -89,6 +74,8 @@ import Types from "../components/Types.vue";
 import Abilities from "../components/Abilities.vue";
 import Descriptions from "../components/Descriptions.vue";
 import PokemonImage from "../components/PokemonImage.vue";
+import Spinner from "../components/Spinner.vue";
+import Items from "../components/Items.vue";
 
 export default defineComponent({
   name: "Pokemon",
@@ -104,7 +91,9 @@ export default defineComponent({
     Types,
     Abilities,
     Descriptions,
-    PokemonImage
+    PokemonImage,
+    Spinner,
+    Items
   },
   props: {
     id: {

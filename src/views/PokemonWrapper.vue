@@ -6,7 +6,7 @@
       @click="back()"
       title="Back"
     >
-      Back
+      ◄
     </button>
     <button
       v-else
@@ -14,22 +14,27 @@
       disabled="disabled"
       title="Back"
     >
-      Back
+      ◄
     </button>
-    <button class="btn btn-primary float-right" @click="next()">
-      Next
+    <button class="btn btn-primary float-right" @click="next()" title="Next">
+      ►
     </button>
     <button
       class="btn btn-primary mx-auto mb-3 d-block"
       @click="rerouteToPokedex()"
       title="Back to pokédex"
     >
-      Back to pokédex
+      ▲
     </button>
     <div class="clear"></div>
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
-        <component :is="routerParams.Component"></component>
+        <keep-alive>
+          <component
+            :is="routerParams.Component"
+            :key="$route.fullPath"
+          ></component>
+        </keep-alive>
       </transition>
     </router-view>
   </div>

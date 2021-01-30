@@ -6,7 +6,7 @@
     <div class="row p-0 m-0">
       <div class="col-1 p-0 m-0 text-left">
         <button
-          class="left btn btn-outline-light d-inline-block"
+          class="left btn btn-outline-light d-inline-block transition-025 h-100 opacity-025"
           @click.self="previousDescription()"
           title="Turn pokemon around"
         >
@@ -31,7 +31,7 @@
       </div>
       <div class="col-1 p-0 m-0 text-right">
         <button
-          class="right btn btn-outline-light d-inline-block"
+          class="right btn btn-outline-light d-inline-block transition-025 h-100 opacity-025"
           @click.self="nextDescription()"
           title="Turn pokemon around"
         >
@@ -76,14 +76,14 @@ export default defineComponent({
 
   methods: {
     nextDescription() {
-      if (Number(this.index) === this.flavourTexts.length - 1) {
+      if (Number(this.index) >= this.flavourTexts.length - 1) {
         this.index = 0;
       } else {
         this.index++;
       }
     },
     previousDescription() {
-      if (Number(this.index) === 0) {
+      if (Number(this.index) <= 0) {
         this.index = this.flavourTexts.length - 1;
       } else {
         this.index--;
@@ -97,16 +97,11 @@ export default defineComponent({
 .descriptions {
   &:hover {
     button {
-      opacity: 0.5;
+      opacity: 0.75;
       &:hover {
         opacity: 1;
       }
     }
-  }
-  button {
-    transition: all 0.25s ease-in-out;
-    opacity: 0.25;
-    height: 100%;
   }
 }
 </style>

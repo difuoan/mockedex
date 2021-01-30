@@ -8,7 +8,7 @@
           @click="previousPokemons()"
           title="Back"
         >
-          Back
+          ◄
         </button>
         <button
           v-else
@@ -16,7 +16,7 @@
           class="btn btn-primary float-left"
           disabled="disabled"
         >
-          Back
+          ◄
         </button>
       </div>
       <div :class="`col-6 ${shakeSearch === true ? 'shake' : ''}`">
@@ -43,7 +43,7 @@
           class="btn btn-primary float-right"
           @click="nextPokemons()"
         >
-          Next
+          ►
         </button>
       </div>
     </div>

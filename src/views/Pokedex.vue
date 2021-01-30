@@ -37,7 +37,7 @@
                 @click="previousPokemons()"
                 title="Back"
               >
-                Back
+                ◄
               </button>
               <button
                 v-else
@@ -45,7 +45,7 @@
                 class="btn btn-primary float-left"
                 disabled="disabled"
               >
-                Back
+                ◄
               </button>
             </div>
             <div :class="`col-6 ${shakeSearch === true ? 'shake' : ''}`">
@@ -73,18 +73,12 @@
                 class="btn btn-primary float-right"
                 @click="nextPokemons()"
               >
-                Next
+                ►
               </button>
             </div>
           </div>
         </div>
-        <div
-          v-else
-          class="mainSpinner spinner-border text-primary"
-          role="status"
-        >
-          <span class="sr-only">Loading...</span>
-        </div>
+        <Spinner v-else class="top-0" />
       </transition>
     </div>
   </div>
@@ -97,6 +91,7 @@ import methods from "../mixins/methods";
 import Image from "../components/Image.vue";
 import Types from "../components/Types.vue";
 import { AxiosPromise, AxiosResponse } from "axios";
+import Spinner from "../components/Spinner.vue";
 
 export default defineComponent({
   name: "Pokedex",
@@ -110,7 +105,8 @@ export default defineComponent({
   },
   components: {
     Image,
-    Types
+    Types,
+    Spinner
   },
   mixins: [methods],
   async mounted() {

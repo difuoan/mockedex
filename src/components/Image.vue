@@ -6,15 +6,21 @@
       :style="`width: ${width}; height: ${height};`"
       class="fadeIn"
     />
-    <div v-if="loaded === false" class="spinnerWrapper fadeIn rounded p-4">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+    <div
+      v-if="loaded === false"
+      :class="
+        `spinnerWrapper ${
+          withBg ? 'withBg' : ''
+        } fadeIn rounded p-4 top-50 left-50`
+      "
+    >
+      <Spinner />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import Spinner from "../components/Spinner.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -23,6 +29,9 @@ export default defineComponent({
     return {
       loaded: false
     };
+  },
+  components: {
+    Spinner
   },
   props: {
     src: {
@@ -38,6 +47,11 @@ export default defineComponent({
       type: String,
       required: false,
       default: "auto"
+    },
+    withBg: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   watch: {
@@ -68,10 +82,9 @@ export default defineComponent({
   height: 257px;
 }
 .spinnerWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.75);
+  &.withBg {
+    background: rgba(255, 255, 255, 0.75);
+  }
 }
 </style>

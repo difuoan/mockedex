@@ -7,7 +7,7 @@
       Moves {{ movesAreOpen ? "▲" : "▼" }}
     </h5>
     <div :class="displayMovesClass">
-      <ol class="text-left mt-2 mb-0">
+      <ol class="text-left mt-2 mb-0 transition-025">
         <li v-for="move in moves" :key="`pokemon_move_${move.move.name}`">
           {{ move.move.name }}
         </li>
@@ -45,7 +45,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @import "~bootstrap/scss/_functions.scss";
-@import "~bootstrap/scss/_variables.scss";
+@import "../assets/scss/variables.scss";
 @import "~bootstrap/scss/_mixins.scss";
 .moves {
   div {
@@ -73,7 +73,6 @@ export default defineComponent({
 
     ol,
     ul {
-      transition: all 0.25s ease-in-out;
       columns: 1;
       @include media-breakpoint-up(sm) {
         columns: 2;
