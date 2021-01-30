@@ -6,7 +6,12 @@
     </div>
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
-        <component :is="routerParams.Component"></component>
+        <keep-alive>
+          <component
+            :is="routerParams.Component"
+            :key="$route.fullPath"
+          ></component>
+        </keep-alive>
       </transition>
     </router-view>
   </div>
