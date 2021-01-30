@@ -32,7 +32,7 @@
         <keep-alive include="Pokemon">
           <component
             :is="routerParams.Component"
-            :key="`pokemon_component_${$store.state.id}`"
+            :key="$store.state.id"
           ></component>
         </keep-alive>
       </transition>

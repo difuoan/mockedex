@@ -52,9 +52,7 @@
         <keep-alive include="Pokedex">
           <component
             :is="routerParams.Component"
-            :key="
-              `pokedex_component_${$store.state.offset}_${$store.state.limit}`
-            "
+            :key="`${$store.state.offset}_${$store.state.limit}`"
           ></component>
         </keep-alive>
       </transition>
