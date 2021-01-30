@@ -2,6 +2,7 @@
   <div class="pokemonImage">
     <div class="position-relative">
       <button
+        v-if="displayButtons"
         class="imageButton left btn btn-outline-secondary position-absolute top-50"
         @click="nextImage()"
         title="Turn pokemon around"
@@ -10,6 +11,7 @@
       </button>
       <Image :src="`${sprites[currentImage]}`" class="px-4 mx-3" />
       <button
+        v-if="displayButtons"
         class="imageButton right btn btn-outline-secondary position-absolute top-50"
         @click="nextImage()"
         title="Turn pokemon around"
@@ -18,6 +20,7 @@
       </button>
     </div>
     <button
+      v-if="displayButtons"
       :class="`btn btn-${isShiny() ? 'primary' : 'outline-secondary'} mx-1`"
       @click="shinyImage()"
       :title="`Show ${isShiny() ? 'default' : 'shiny'} version`"
@@ -25,7 +28,7 @@
       ☼
     </button>
     <button
-      v-if="sprites['front_female']"
+      v-if="sprites['front_female'] && displayButtons"
       :class="`btn btn-outline-secondary mx-1`"
       @click="swapGender()"
       :title="`Show ${isFemale() ? 'male' : 'female'} version`"
@@ -53,6 +56,11 @@ export default defineComponent({
     sprites: {
       type: Object,
       required: true
+    },
+    displayButtons: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   methods: {
