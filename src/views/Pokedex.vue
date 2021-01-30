@@ -21,7 +21,7 @@
                   class="card-img-top"
                 />
                 <div class="card-body pt-0">
-                  <h5 class="card-title p-0 text-bold">
+                  <h5 class="card-title p-0 m-0 text-bold">
                     <Name :name="pokemon.name" />
                   </h5>
                   <small
@@ -107,15 +107,15 @@ export default defineComponent({
       shakeSearch: false
     };
   },
-  components: {
-    Image,
-    Types,
-    Spinner,
-    Name
-  },
-  mixins: [methods],
-  async mounted() {
-    await this.loadPokemons();
+  props: {
+    offset: {
+      type: String,
+      required: true
+    },
+    limit: {
+      type: String,
+      required: true
+    }
   },
   watch: {
     "$store.state.limit": async function() {
@@ -124,6 +124,18 @@ export default defineComponent({
     "$store.state.offset": async function() {
       await this.loadPokemons();
     }
+  },
+  components: {
+    Image,
+    Types,
+    Spinner,
+    Name
+  },
+  mixins: [methods],
+  async mounted() {
+    this.$store.state.offset = Number(this.offset);
+    this.$store.state.limit = Number(this.limit);
+    this.loadPokemons();
   },
   methods: {
     async loadPokemons() {
@@ -146,12 +158,7 @@ export default defineComponent({
     },
     rerouteToPokemonView(id: number) {
       this.$store.state.id = id;
-      this.$router.push({
-        name: "Pokemon",
-        params: {
-          id: id
-        }
-      });
+      this.rerouteToPokemon();
     },
     async search() {
       try {
@@ -163,7 +170,7 @@ export default defineComponent({
         if (result.status === 200) {
           const pokemon = result.data as Pokemon;
           this.$store.state.id = pokemon.id;
-          this.$router.push({ name: "Pokemon", params: { id: pokemon.id } });
+          this.rerouteToPokemon();
         }
       } catch (error) {
         this.shakeSearch = true;

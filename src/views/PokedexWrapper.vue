@@ -49,7 +49,14 @@
     </div>
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
-        <component :is="routerParams.Component"></component>
+        <keep-alive include="Pokedex">
+          <component
+            :is="routerParams.Component"
+            :key="
+              `pokedex_component_${$store.state.offset}_${$store.state.limit}`
+            "
+          ></component>
+        </keep-alive>
       </transition>
     </router-view>
   </div>
@@ -79,7 +86,7 @@ export default defineComponent({
           String(this.pokemonToSearch).replace(/^0+/g, "") // replace leading zeros
         );
         this.$store.state.id = pokemon.id;
-        this.$router.push({ name: "Pokemon", params: { id: pokemon.id } });
+        this.rerouteToPokemon();
       } catch (error) {
         this.hintAtSearchError();
       }

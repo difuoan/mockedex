@@ -3,7 +3,7 @@
     <button
       class="btn btn-primary float-left"
       v-if="$store.state.id > 0"
-      @click="back()"
+      @click="previous()"
       title="Back"
     >
       ◄
@@ -21,7 +21,7 @@
     </button>
     <button
       class="btn btn-primary mx-auto mb-3 d-block"
-      @click="rerouteToPokedex()"
+      @click="back()"
       title="Back to pokédex"
     >
       ▲
@@ -29,7 +29,12 @@
     <div class="clear"></div>
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
-        <component :is="routerParams.Component"></component>
+        <keep-alive include="Pokemon">
+          <component
+            :is="routerParams.Component"
+            :key="`pokemon_component_${$store.state.id}`"
+          ></component>
+        </keep-alive>
       </transition>
     </router-view>
   </div>
@@ -43,13 +48,13 @@ export default defineComponent({
   name: "PokemonWrapper",
   mixins: [methods],
   methods: {
-    back() {
+    previous() {
       this.$store.state.id--;
       if (this.$store.state.id <= this.$store.state.offset) {
         this.$store.state.offset =
           this.$store.state.offset - this.$store.state.limit;
       }
-      this.updateRoute();
+      this.rerouteToPokemon();
     },
     next() {
       this.$store.state.id++;
@@ -60,13 +65,17 @@ export default defineComponent({
         this.$store.state.offset =
           this.$store.state.offset + this.$store.state.limit;
       }
-      this.updateRoute();
+      this.rerouteToPokemon();
     },
-    updateRoute() {
-      this.$router.push({
-        name: "Pokemon",
-        params: { id: this.$store.state.id }
-      });
+    back() {
+      if (
+        this.$store.state.id <= this.$store.state.offset ||
+        this.$store.state.id >
+          this.$store.state.offset + this.$store.state.limit
+      ) {
+        this.$store.state.offset = this.$store.state.id - 1;
+      }
+      this.rerouteToPokedex();
     }
   }
 });

@@ -43,7 +43,6 @@
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <Stats :stats="pokemon.stats" class="mb-3" />
               <Items
-                :key="$route.fullPath"
                 :items="pokemon.held_items"
                 v-if="pokemon.held_items.length > 0"
               />
@@ -99,15 +98,15 @@ export default defineComponent({
     Items,
     Name
   },
+  watch: {
+    "$store.state.id": async function() {
+      await this.loadPokemonWrapper();
+    }
+  },
   props: {
     id: {
       type: String,
       required: true
-    }
-  },
-  watch: {
-    "$store.state.id": function() {
-      this.loadPokemonWrapper();
     }
   },
   async mounted() {

@@ -36,21 +36,30 @@ export default defineComponent({
       this.$store.state.offset = Number(
         Number(this.$store.state.offset) + Number(this.$store.state.limit)
       );
+      this.rerouteToPokedex();
     },
     async previousPokemons() {
       this.$store.state.offset = Number(
         Number(this.$store.state.offset) - Number(this.$store.state.limit)
       );
+      this.rerouteToPokedex();
     },
     rerouteToPokedex() {
-      if (
-        this.$store.state.id <= this.$store.state.offset ||
-        this.$store.state.id >
-          this.$store.state.offset + this.$store.state.limit
-      ) {
-        this.$store.state.offset = this.$store.state.id - 1;
-      }
-      this.$router.push({ name: "Pokedex" });
+      this.$router.push({
+        name: "Pokedex",
+        params: {
+          offset: this.$store.state.offset,
+          limit: this.$store.state.limit
+        }
+      });
+    },
+    rerouteToPokemon() {
+      this.$router.push({
+        name: "Pokemon",
+        params: {
+          id: this.$store.state.id
+        }
+      });
     },
     // eslint-disable-next-line
     getValueByLanguage(array: Array<any>) {

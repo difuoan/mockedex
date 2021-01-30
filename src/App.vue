@@ -6,10 +6,10 @@
     </div>
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
-        <keep-alive>
+        <keep-alive include="PokedexWrapper,PokemonWrapper">
           <component
             :is="routerParams.Component"
-            :key="$route.fullPath"
+            :key="$route.name"
           ></component>
         </keep-alive>
       </transition>

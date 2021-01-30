@@ -7,11 +7,15 @@ import PokemonWrapper from "../views/PokemonWrapper.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "pokedex",
+    redirect: "/pokedex/0/4"
+  },
+  {
+    path: "/pokedex",
+    name: "PokedexWrapper",
     component: PokedexWrapper,
     children: [
       {
-        path: "pokedex",
+        path: ":offset/:limit",
         name: "Pokedex",
         component: Pokedex,
         props: true
@@ -19,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: "/pokedex/pokemon",
+    path: "/pokemon",
     redirect: "pokedex",
     component: PokemonWrapper,
     children: [
