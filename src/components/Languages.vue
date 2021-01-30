@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
+// TODO: also add languages for the interface-elements
 export default defineComponent({
   name: "Languages",
   data() {
