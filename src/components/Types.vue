@@ -5,13 +5,13 @@
         v-for="type in internalTypes"
         :key="`pokemon_type_${type.name}`"
         :style="`background: ${typeStyle(type.name)};`"
-        class="rounded p-1 d-inline-block mb-2 mx-1"
+        class="rounded p-1 px-3 d-inline-block mb-2 mx-1"
         >{{ getValueByLanguage(type.names)[0].name }}</b
       >
     </div>
     <div v-else>
       <Spinner class="position-absolute" />
-      <span class="rounded p-1 d-inline-block mb-2 mx-1">&nbsp;</span>
+      <span class="rounded p-1 px-3 d-inline-block mb-2 mx-1">&nbsp;</span>
     </div>
   </transition>
 </template>

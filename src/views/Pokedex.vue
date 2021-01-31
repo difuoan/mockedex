@@ -24,7 +24,7 @@
                   <h5 class="card-title p-0 m-0 text-bold">
                     <Name :name="pokemon.name" />
                   </h5>
-                  <small
+                  <small class="mb-2 d-inline-block"
                     >id: <b>{{ pokemon.name }}</b></small
                   >
                   <Types :types="pokemon.types" />
