@@ -23,8 +23,8 @@
           }}
         </div>
       </div>
-      <div v-else>
-        <Spinner class="position-absolute" />
+      <div class="position-relative" v-else>
+        <Spinner class="left-50 translate-x-m-50" />
         <span>&nbsp;</span>
       </div>
     </transition>

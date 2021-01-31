@@ -84,21 +84,37 @@ html {
 .top-50,
 .right-0,
 .top-0,
-.left-50 {
+.left-50,
+.left-0 {
   position: absolute;
 }
 .top-0 {
   top: 0;
 }
+.left-0 {
+  left: 0;
+}
 .top-50 {
   top: 50%;
-  transform: translateY(-50%);
 }
 .right-0 {
   right: 0;
 }
 .left-50 {
   left: 50%;
+}
+// position (translate) ---------------------------------
+.translate-x-m-50 {
+  transform: translateX(-50%);
+}
+.translate-y-m-50 {
+  transform: translateY(-50%);
+}
+.translate-x-m-50 {
+  transform: translateX(-50%);
+}
+.translate-m-50 {
+  transform: translate(-50%, -50%);
 }
 // HELPERS END //////////////////////////////////////////////////////////
 
@@ -110,21 +126,21 @@ html {
 @keyframes shake {
   8%,
   41% {
-    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
   }
   25%,
   58% {
-    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
   }
   75% {
-    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
   }
   92% {
-    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
   }
   0%,
   100% {
-    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
 }
 // bounces an element (hovered) ---------------------------------

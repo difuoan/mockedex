@@ -2,7 +2,9 @@
   <div class="container py-4 text-center">
     <div class="bg-white border rounded mb-4 position-relative">
       <h1>Mock-édex</h1>
-      <languages class="position-absolute top-50 right-0 mr-3" />
+      <languages
+        class="position-absolute top-50 right-0 mr-3 translate-y-m-50"
+      />
     </div>
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">

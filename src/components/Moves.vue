@@ -6,31 +6,59 @@
     <h5 class="text-white text-center m-0">
       Moves {{ movesAreOpen ? "▲" : "▼" }}
     </h5>
-    <div :class="`${displayMovesClass} mt-2`">
-      <ol class="text-left mb-0 transition-025">
-        <li v-for="move in moves" :key="`pokemon_move_${move.move.name}`">
-          {{ move.move.name }}
+    <div :class="`movesWrapper ${displayMovesClass} mt-2`">
+      <ol class="text-left mb-0 transition-025" v-if="loaded">
+        <li v-for="move in internalMoves" :key="`pokemon_move_${move.name}`">
+          {{ getValueByLanguage(move.names)[0].name }}
         </li>
       </ol>
+      <div v-else class="text-center">
+        <br />
+        <Spinner />
+        <br />
+        <br />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import methods from "../mixins/methods";
 import { defineComponent } from "vue";
-
+import { AxiosPromise, AxiosResponse } from "axios";
+import Spinner from "../components/Spinner.vue";
+interface Move {
+  move: {
+    name: string;
+    url: string;
+  };
+}
 export default defineComponent({
   name: "Moves",
   data() {
     return {
-      movesAreOpen: false
+      movesAreOpen: false,
+      loaded: false,
+      internalMoves: [] as Array<Move>
     };
   },
+  components: {
+    Spinner
+  },
+  mixins: [methods],
   props: {
     moves: {
-      type: Array,
+      type: Array as () => Array<Move>,
       required: true
     }
+  },
+  async mounted() {
+    const movesPromises: Array<AxiosPromise> = this.moves.map((move: Move) => {
+      return this.axios.get(move.move.url) as AxiosPromise;
+    });
+    const moves: Array<AxiosResponse> = await this.axios.all(movesPromises);
+    this.internalMoves = moves.map(response => response.data as Move);
+    this.loaded = true;
   },
   computed: {
     displayMovesClass() {
@@ -48,7 +76,7 @@ export default defineComponent({
 @import "../assets/scss/variables.scss";
 @import "~bootstrap/scss/_mixins.scss";
 .moves {
-  div {
+  .movesWrapper {
     height: auto;
     overflow-y: hidden;
     &.movesAreOpen {

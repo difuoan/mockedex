@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <Spinner v-else class="top-0" />
+        <Spinner v-else />
       </transition>
     </div>
   </div>
