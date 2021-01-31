@@ -61,7 +61,7 @@ export default defineComponent({
       this.axios.get(type.type.url)
     );
     const types: Array<AxiosResponse> = await this.axios.all(typesPromises);
-    this.internalTypes = types.map(response => response.data);
+    this.internalTypes = types.map(response => response.data as Type);
     this.loaded = true;
   },
   mixins: [methods],

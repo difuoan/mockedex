@@ -6,8 +6,8 @@
     <h5 class="text-white text-center m-0">
       Moves {{ movesAreOpen ? "▲" : "▼" }}
     </h5>
-    <div :class="displayMovesClass">
-      <ol class="text-left mt-2 mb-0 transition-025">
+    <div :class="`${displayMovesClass} mt-2`">
+      <ol class="text-left mb-0 transition-025">
         <li v-for="move in moves" :key="`pokemon_move_${move.move.name}`">
           {{ move.move.name }}
         </li>

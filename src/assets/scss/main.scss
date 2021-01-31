@@ -68,6 +68,9 @@ html {
   transition: all 0.25s ease-in-out;
 }
 // visibility (opacity) ---------------------------------
+.opacity-0 {
+  opacity: 0;
+}
 .opacity-025 {
   opacity: 0.25;
 }

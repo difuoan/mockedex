@@ -5,7 +5,7 @@
     }}</span>
     <span v-else>
       <Spinner class="position-absolute" />
-      <span>&nbsp;</span>
+      <span class="opacity-0">{{ name }}</span>
     </span>
   </transition>
 </template>
