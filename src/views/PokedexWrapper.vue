@@ -18,6 +18,7 @@
         >
           ◄
         </button>
+        <!-- TODO: add a real icon-library and replace the spcial-chars -->
       </div>
       <div :class="`col-6 ${shakeSearch === true ? 'shake' : ''}`">
         <div class="input-group mb-3">

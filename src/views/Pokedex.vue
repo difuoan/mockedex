@@ -60,7 +60,7 @@
                   class="custom-select"
                   id="limit"
                   v-model="$store.state.limit"
-                  @change="loadPokemons"
+                  @change="changeLimit"
                 >
                   <option value="4">4</option>
                   <option value="8">8</option>
@@ -138,6 +138,15 @@ export default defineComponent({
     this.loadPokemons();
   },
   methods: {
+    async changeLimit() {
+      this.$router.push({
+        name: "Pokedex",
+        params: {
+          offset: this.$store.state.offset,
+          limit: this.$store.state.limit
+        }
+      });
+    },
     async loadPokemons() {
       this.loading = true;
       const result = await this.axios.get(

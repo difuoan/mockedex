@@ -7,9 +7,9 @@
     >
       <option
         v-for="language in languages"
-        :value="language"
-        :key="`language_${language}`"
-        >{{ language }}</option
+        :value="language.index"
+        :key="`language_${language.index}`"
+        >{{ language.name }}</option
       >
     </select>
   </div>
@@ -17,12 +17,18 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+// TODO: add languages for the interface texts
 export default defineComponent({
   name: "Languages",
   data() {
     return {
-      languages: ["fr", "de", "es", "en", "it"]
+      languages: [
+        { index: "fr", name: "🇫🇷" },
+        { index: "de", name: "🇩🇪" },
+        { index: "es", name: "🇪🇸" },
+        { index: "en", name: "🇬🇧" },
+        { index: "it", name: "🇮🇹" }
+      ]
     };
   }
 });
