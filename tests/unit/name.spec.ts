@@ -16,9 +16,30 @@ describe("Name.vue", () => {
       data: {
         names: [
           {
+            name: "not the right value",
+            language: {
+              name: "it",
+              url: ""
+            }
+          },
+          {
             name: "test 2",
             language: {
               name: "test 3",
+              url: ""
+            }
+          },
+          {
+            name: "not the right value",
+            language: {
+              name: "de",
+              url: ""
+            }
+          },
+          {
+            name: "not the right value",
+            language: {
+              name: "en",
               url: ""
             }
           }
