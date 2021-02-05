@@ -116,6 +116,42 @@ html {
 .translate-m-50 {
   transform: translate(-50%, -50%);
 }
+// background --------------------------------------------
+.btn {
+  transition: all 250ms ease-in-out;
+}
+.btn-pink {
+  border: 1px solid pink;
+  background-color: pink;
+  color: white;
+}
+.btn-lightblue {
+  border: 1px solid lightblue;
+  background-color: lightblue;
+  color: white;
+}
+.btn-pink:focus,
+.btn-pink:active {
+  box-shadow: 0 0 0 0.2rem rgba(255, 192, 203, 0.5);
+  border: 1px solid darken($color: pink, $amount: 10);
+  background-color: darken($color: pink, $amount: 10);
+}
+.btn-lightblue:focus,
+.btn-lightblue:active {
+  box-shadow: 0 0 0 0.2rem rgba(173, 216, 230, 0.5);
+  border: 1px solid darken($color: lightblue, $amount: 10);
+  background-color: darken($color: lightblue, $amount: 10);
+}
+.btn-pink:hover {
+  border: 1px solid darken($color: pink, $amount: 10);
+  background-color: darken($color: pink, $amount: 10);
+  color: white;
+}
+.btn-lightblue:hover {
+  border: 1px solid darken($color: lightblue, $amount: 10);
+  background-color: darken($color: lightblue, $amount: 10);
+  color: white;
+}
 // HELPERS END //////////////////////////////////////////////////////////
 
 // ANIMATIONS START //////////////////////////////////////////////

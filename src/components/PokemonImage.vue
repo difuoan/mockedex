@@ -21,7 +21,7 @@
     </div>
     <button
       v-if="displayButtons"
-      :class="`btn btn-${isShiny() ? 'primary' : 'outline-secondary'} mx-1`"
+      :class="`btn btn-${isShiny() ? 'warning' : 'secondary'} mx-1`"
       @click="shinyImage()"
       :title="`Show ${isShiny() ? 'default' : 'shiny'} version`"
     >
@@ -29,7 +29,7 @@
     </button>
     <button
       v-if="sprites['front_female'] && displayButtons"
-      :class="`btn btn-outline-secondary mx-1`"
+      :class="`btn btn-${isFemale() ? 'pink' : 'lightblue'} mx-1 `"
       @click="swapGender()"
       :title="`Show ${isFemale() ? 'male' : 'female'} version`"
     >
