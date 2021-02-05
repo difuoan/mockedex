@@ -47,7 +47,7 @@ describe("Name.vue", () => {
       }
     })
   };
-  it("loads the pokémons name and displays it in the correct language", async () => {
+  it("set up the Name component and check the pre-loader, then await the mocked axios call and check the displayed response", async () => {
     const wrapper = shallowMount(Name, {
       props: { name },
       global: {
@@ -58,8 +58,8 @@ describe("Name.vue", () => {
         }
       }
     } as any);
-    expect(wrapper.html()).toContain("test 1");
+    expect(wrapper.text()).toStrictEqual("test 1");
     await flushPromises();
-    expect(wrapper.html()).toContain("test 2");
+    expect(wrapper.text()).toStrictEqual("test 2");
   });
 });
