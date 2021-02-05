@@ -54,7 +54,7 @@
                 "
               />
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-12">
               <Moves :moves="pokemon.moves" />
             </div>
           </div>
