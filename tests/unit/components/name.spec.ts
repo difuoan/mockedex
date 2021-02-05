@@ -47,7 +47,8 @@ describe("Name.vue", () => {
       }
     })
   };
-  it("set up the Name component and check the pre-loader, then await the mocked axios call and check the displayed response", async () => {
+  it(`set up the Name component and check the pre-loader,
+  then await the mocked axios call and check the displayed response`, async () => {
     const wrapper = shallowMount(Name, {
       props: { name },
       global: {

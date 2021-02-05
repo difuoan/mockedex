@@ -4,7 +4,8 @@ import Stats from "@/components/Stats.vue";
 type DomWrapperArray = Array<DOMWrapper<HTMLElement>>;
 
 describe("Stats.vue", () => {
-  it("pass some props to the component and thest whether they are displayed in the order we expect", () => {
+  it(`pass some props to the Stats component,
+  then test whether they are displayed in the order we expect`, () => {
     const stats = [
       {
         stat: {

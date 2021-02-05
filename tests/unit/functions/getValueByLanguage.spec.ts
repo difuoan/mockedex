@@ -45,7 +45,9 @@ describe("Name.vue", () => {
       }
     }
   ];
-  it("see if the getValueByLanguage-function returns the expected values, then change the language and check again", async () => {
+  it(`see if the getValueByLanguage-function returns the expected values,
+    then change the language and check again
+    (we don't really check the filter-function, but the data structure)`, async () => {
     const wrapper = shallowMount(methods, {
       global: {
         plugins: [store]
