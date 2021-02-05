@@ -2,7 +2,7 @@
   <div class="wrapper">
     <button
       class="btn btn-primary float-left"
-      v-if="$store.state.id > 0"
+      v-if="$store.state.id > 1"
       @click="previous()"
       title="Back"
     >
@@ -50,7 +50,10 @@ export default defineComponent({
   methods: {
     previous() {
       this.$store.state.id--;
-      if (this.$store.state.id <= this.$store.state.offset) {
+      if (
+        this.$store.state.id <= this.$store.state.offset ||
+        this.isValidPath === false
+      ) {
         this.$store.state.offset =
           this.$store.state.offset - this.$store.state.limit;
       }
@@ -60,7 +63,8 @@ export default defineComponent({
       this.$store.state.id++;
       if (
         this.$store.state.id >
-        this.$store.state.offset + this.$store.state.limit
+          this.$store.state.offset + this.$store.state.limit ||
+        this.isValidPath === false
       ) {
         this.$store.state.offset =
           this.$store.state.offset + this.$store.state.limit;
@@ -71,7 +75,8 @@ export default defineComponent({
       if (
         this.$store.state.id <= this.$store.state.offset ||
         this.$store.state.id >
-          this.$store.state.offset + this.$store.state.limit
+          this.$store.state.offset + this.$store.state.limit ||
+        this.isValidPath === false
       ) {
         this.$store.state.offset = this.$store.state.id - 1;
       }

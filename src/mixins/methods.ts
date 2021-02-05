@@ -2,6 +2,13 @@ import { defineComponent } from "vue";
 import "../mixins/interfaces";
 
 export default defineComponent({
+  computed: {
+    isValidPath() {
+      return (
+        (this.$store.state.offset <= 0 || this.$store.state.id <= 0) === false
+      );
+    }
+  },
   methods: {
     async loadPokemon(id = "1") {
       const response = await this.axios.get(
@@ -39,6 +46,10 @@ export default defineComponent({
       this.rerouteToPokedex();
     },
     async previousPokemons() {
+      if (this.isValidPath === false) {
+        this.$store.state.offset = 0;
+        return false;
+      }
       this.$store.state.offset = Number(
         Number(this.$store.state.offset) - Number(this.$store.state.limit)
       );
