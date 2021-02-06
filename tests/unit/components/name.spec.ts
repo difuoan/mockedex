@@ -3,9 +3,6 @@ import Name from "@/components/Name.vue";
 import { createStore, Store } from "vuex";
 import methods from "@/mixins/methods";
 
-// TODO: find out how to not use an async describe()-callback because it's technically not supported and the test correctly throws an error
-// use an async function here because we need to await the it()-functions because its content is also async
-// (only relevant when queing multiple tests in the same describe() - function)
 describe("Name.vue", () => {
   let name: string;
   let store: Store<{
