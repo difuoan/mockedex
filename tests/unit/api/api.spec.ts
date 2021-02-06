@@ -1,7 +1,6 @@
 import axios from "axios";
 
 describe("Name.vue", () => {
-  // TEST 1 - START //////////////////////////////////////////////////////////////////////////////////////////
   // use await so jest doesn't get confused when chaining the tests
   it(`simply test the status of the v2 api because we need it
       (we don't test the actual data-structure because it should stay the same within v2)`, async () => {
@@ -17,5 +16,4 @@ describe("Name.vue", () => {
       });
     expect(axiosSpy).toHaveBeenCalledTimes(2);
   });
-  // TEST 1 - END //////////////////////////////////////////////////////////////////////////////////////////
 });
