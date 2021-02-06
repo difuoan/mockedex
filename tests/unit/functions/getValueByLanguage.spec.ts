@@ -11,8 +11,8 @@ describe("Name.vue", () => {
   });
   // TEST 1 - START //////////////////////////////////////////////////////////////////////////////////////////
   it(`see if the getValueByLanguage-function returns the expected values,
-    then change the language and check again
-    (we don't really check the filter-function, but the data structure)`, async () => {
+      then change the language and check again
+      (we don't really check the filter-function, but the data structure)`, async () => {
     store = createStore({ state: { language: "test 3" } });
     names = [
       { name: "not the right value", language: { name: "it", url: "" } },
@@ -21,7 +21,12 @@ describe("Name.vue", () => {
       { name: "not the right value", language: { name: "de", url: "" } },
       { name: "not the right value", language: { name: "en", url: "" } }
     ];
-    wrapper = shallowMount(methods, { global: { plugins: [store] } } as any);
+    wrapper = shallowMount(
+      { template: "<template><div>test</div></template>" },
+      {
+        global: { plugins: [store], mixins: [methods] }
+      } as any
+    );
     expect(wrapper.vm.getValueByLanguage(names)).toStrictEqual([
       { name: "test 2", language: { name: "test 3", url: "" } }
     ]);
@@ -43,7 +48,12 @@ describe("Name.vue", () => {
       { name: "not the right value", language: { name: "de", url: "" } },
       { name: "not the right value", language: { name: "en", url: "" } }
     ];
-    wrapper = shallowMount(methods, { global: { plugins: [store] } } as any);
+    wrapper = shallowMount(
+      { template: "<template><div>test</div></template>" },
+      {
+        global: { plugins: [store], mixins: [methods] }
+      } as any
+    );
     expect(wrapper.vm.getValueByLanguage(names)).toStrictEqual([
       { name: "test 6", language: { name: "test 8", url: "" } }
     ]);

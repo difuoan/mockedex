@@ -11,7 +11,7 @@ describe("Stats.vue", () => {
   });
   // TEST 1 - START //////////////////////////////////////////////////////////////////////////////////////////
   it(`pass some props to the Stats component,
-  then test whether they are displayed in the order we expect`, () => {
+      then test whether they are displayed in the order we expect`, () => {
     stats = [
       { stat: { name: "test 1" }, base_stat: 10 },
       { stat: { name: "test 2" }, base_stat: 20 },

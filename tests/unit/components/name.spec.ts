@@ -6,7 +6,7 @@ import methods from "@/mixins/methods";
 // TODO: find out how to not use an async describe()-callback because it's technically not supported and the test correctly throws an error
 // use an async function here because we need to await the it()-functions because its content is also async
 // (only relevant when queing multiple tests in the same describe() - function)
-describe("Name.vue", async () => {
+describe("Name.vue", () => {
   let name: string;
   let store: Store<{
     apiUrl: string;
@@ -14,13 +14,14 @@ describe("Name.vue", async () => {
   }>;
   let axios;
   let wrapper: VueWrapper<any>;
+  let axiosSpy;
   afterEach(() => {
     wrapper.unmount(); // don't forget to unmount the wrapper
   });
   // TEST 1 - START //////////////////////////////////////////////////////////////////////////////////////////
   // use await so jest doesn't get confused when chaining the tests
-  await it(`set up the Name component and check the pre-loader,
-  then await the mocked axios call and check the displayed response`, async () => {
+  it(`set up the Name component and check the pre-loader,
+      then await the mocked axios call and check the displayed response`, async () => {
     name = "test 1";
     axios = {
       get: async () => ({
@@ -35,6 +36,7 @@ describe("Name.vue", async () => {
         }
       })
     };
+    axiosSpy = jest.spyOn(axios, "get");
     store = createStore({
       state: {
         apiUrl: "test 4",
@@ -52,17 +54,18 @@ describe("Name.vue", async () => {
     } as any);
     expect(wrapper.text()).toStrictEqual("test 1"); // the text we display while loading
     await flushPromises(); // await axios response
-    // expect(axios).toHaveBeenCalledTimes(1); // TODO: make axios a spy function so we can check whether it has been called
+    expect(axiosSpy).toHaveBeenCalledTimes(1); // check whether axios has been called
     expect(wrapper.text()).toStrictEqual("test 2"); // text after loading
     wrapper.vm.$store.state.language = "test 4"; // change language
     await wrapper.vm.$nextTick(); // await changes
     expect(wrapper.text()).toStrictEqual("test 5"); // text after language change
+    expect(axiosSpy).toHaveBeenCalledTimes(1); // check whether axios has NOT been called another time
   });
   // TEST 1 - END //////////////////////////////////////////////////////////////////////////////////////////
   // TEST 2 - START //////////////////////////////////////////////////////////////////////////////////////////
   // use await so jest doesn't get confused when chaining the tests
-  await it(`set up the Name component and check the pre-loader,
-  then await the mocked axios call and check the displayed response`, async () => {
+  it(`set up the Name component and check the pre-loader,
+      then await the mocked axios call and check the displayed response`, async () => {
     name = "test 10";
     axios = {
       get: async () => ({
@@ -77,8 +80,9 @@ describe("Name.vue", async () => {
         }
       })
     };
+    axiosSpy = jest.spyOn(axios, "get");
     store = createStore({
-      state: { apiUrl: "", language: "test 6" }
+      state: { apiUrl: "", language: "test 8" }
     });
     // instantiate the wrapper inside the it-function so we can check on the initial state of the app
     wrapper = shallowMount(Name, {
@@ -91,11 +95,13 @@ describe("Name.vue", async () => {
     } as any);
     expect(wrapper.text()).toStrictEqual("test 10"); // the text we display while loading
     await flushPromises(); // await axios response
+    expect(axiosSpy).toHaveBeenCalledTimes(1); // check whether axios has been called
     await wrapper.vm.$nextTick(); // await changes
-    expect(wrapper.text()).toStrictEqual("test 8"); // text after loading
-    wrapper.vm.$store.state.language = "test 7"; // change language
+    expect(wrapper.text()).toStrictEqual("test 6"); // text after loading
+    wrapper.vm.$store.state.language = "test 9"; // change language
     await wrapper.vm.$nextTick(); // await changes
-    expect(wrapper.text()).toStrictEqual("test 9"); // text after language change
+    expect(wrapper.text()).toStrictEqual("test 7"); // text after language change
+    expect(axiosSpy).toHaveBeenCalledTimes(1); // check whether axios has NOT been called another time
   });
   // TEST 2 - END //////////////////////////////////////////////////////////////////////////////////////////
 });
