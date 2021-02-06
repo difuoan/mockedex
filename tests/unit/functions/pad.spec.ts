@@ -5,7 +5,7 @@ describe("Name.vue", () => {
   let wrapper: VueWrapper<any>;
   beforeEach(() => {
     wrapper = shallowMount(
-      { template: "<template><div>test</div></template>" },
+      { template: "<template><div>test</div></template>" }, // simulate a component so hte unit-test doesn't complain
       {
         global: { mixins: [methods] }
       } as any

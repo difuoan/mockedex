@@ -22,7 +22,7 @@ describe("Name.vue", () => {
       { name: "not the right value", language: { name: "en", url: "" } }
     ];
     wrapper = shallowMount(
-      { template: "<template><div>test</div></template>" },
+      { template: "<template><div>test</div></template>" }, // simulate a component so hte unit-test doesn't complain
       {
         global: { plugins: [store], mixins: [methods] }
       } as any
