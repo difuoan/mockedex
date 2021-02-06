@@ -1,66 +1,101 @@
-import { shallowMount, flushPromises } from "@vue/test-utils";
+import { shallowMount, flushPromises, VueWrapper } from "@vue/test-utils";
 import Name from "@/components/Name.vue";
-import { createStore } from "vuex";
+import { createStore, Store } from "vuex";
 import methods from "@/mixins/methods";
 
-describe("Name.vue", () => {
-  const name = "test 1";
-  const store = createStore({
-    state: {
-      apiUrl: "test 4",
-      language: "test 3"
-    }
+// TODO: find out how to not use an async describe()-callback because it's technically not supported and the test correctly throws an error
+// use an async function here because we need to await the it()-functions because its content is also async
+// (only relevant when queing multiple tests in the same describe() - function)
+describe("Name.vue", async () => {
+  let name: string;
+  let store: Store<{
+    apiUrl: string;
+    language: string;
+  }>;
+  let axios;
+  let wrapper: VueWrapper<any>;
+  afterEach(() => {
+    wrapper.unmount(); // don't forget to unmount the wrapper
   });
-  const axios = {
-    get: async () => ({
-      data: {
-        names: [
-          {
-            name: "not the right value",
-            language: {
-              name: "it",
-              url: ""
-            }
-          },
-          {
-            name: "test 2",
-            language: {
-              name: "test 3",
-              url: ""
-            }
-          },
-          {
-            name: "not the right value",
-            language: {
-              name: "de",
-              url: ""
-            }
-          },
-          {
-            name: "not the right value",
-            language: {
-              name: "en",
-              url: ""
-            }
-          }
-        ]
-      }
-    })
-  };
-  it(`set up the Name component and check the pre-loader,
+  // TEST 1 - START //////////////////////////////////////////////////////////////////////////////////////////
+  // use await so jest doesn't get confused when chaining the tests
+  await it(`set up the Name component and check the pre-loader,
   then await the mocked axios call and check the displayed response`, async () => {
-    const wrapper = shallowMount(Name, {
+    name = "test 1";
+    axios = {
+      get: async () => ({
+        data: {
+          names: [
+            { name: "not the right value", language: { name: "it", url: "" } },
+            { name: "test 5", language: { name: "test 4", url: "" } },
+            { name: "test 2", language: { name: "test 3", url: "" } },
+            { name: "not the right value", language: { name: "de", url: "" } },
+            { name: "not the right value", language: { name: "en", url: "" } }
+          ]
+        }
+      })
+    };
+    store = createStore({
+      state: {
+        apiUrl: "test 4",
+        language: "test 3"
+      }
+    });
+    // instantiate the wrapper inside the it-function so we can check on the initial state of the app
+    wrapper = shallowMount(Name, {
       props: { name },
       global: {
         plugins: [store],
         mixins: [methods],
-        mocks: {
-          axios: axios
-        }
+        mocks: { axios: axios }
       }
     } as any);
-    expect(wrapper.text()).toStrictEqual("test 1");
-    await flushPromises();
-    expect(wrapper.text()).toStrictEqual("test 2");
+    expect(wrapper.text()).toStrictEqual("test 1"); // the text we display while loading
+    await flushPromises(); // await axios response
+    // expect(axios).toHaveBeenCalledTimes(1); // TODO: make axios a spy function so we can check whether it has been called
+    expect(wrapper.text()).toStrictEqual("test 2"); // text after loading
+    wrapper.vm.$store.state.language = "test 4"; // change language
+    await wrapper.vm.$nextTick(); // await changes
+    expect(wrapper.text()).toStrictEqual("test 5"); // text after language change
   });
+  // TEST 1 - END //////////////////////////////////////////////////////////////////////////////////////////
+  // TEST 2 - START //////////////////////////////////////////////////////////////////////////////////////////
+  // use await so jest doesn't get confused when chaining the tests
+  await it(`set up the Name component and check the pre-loader,
+  then await the mocked axios call and check the displayed response`, async () => {
+    name = "test 10";
+    axios = {
+      get: async () => ({
+        data: {
+          names: [
+            { name: "not the right value", language: { name: "it", url: "" } },
+            { name: "test 6", language: { name: "test 8", url: "" } },
+            { name: "test 7", language: { name: "test 9", url: "" } },
+            { name: "not the right value", language: { name: "de", url: "" } },
+            { name: "not the right value", language: { name: "en", url: "" } }
+          ]
+        }
+      })
+    };
+    store = createStore({
+      state: { apiUrl: "", language: "test 6" }
+    });
+    // instantiate the wrapper inside the it-function so we can check on the initial state of the app
+    wrapper = shallowMount(Name, {
+      props: { name },
+      global: {
+        plugins: [store],
+        mixins: [methods],
+        mocks: { axios: axios }
+      }
+    } as any);
+    expect(wrapper.text()).toStrictEqual("test 10"); // the text we display while loading
+    await flushPromises(); // await axios response
+    await wrapper.vm.$nextTick(); // await changes
+    expect(wrapper.text()).toStrictEqual("test 8"); // text after loading
+    wrapper.vm.$store.state.language = "test 7"; // change language
+    await wrapper.vm.$nextTick(); // await changes
+    expect(wrapper.text()).toStrictEqual("test 9"); // text after language change
+  });
+  // TEST 2 - END //////////////////////////////////////////////////////////////////////////////////////////
 });
