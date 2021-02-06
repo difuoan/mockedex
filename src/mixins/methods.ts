@@ -3,14 +3,36 @@ import "../mixins/interfaces";
 
 export default defineComponent({
   computed: {
-    isValidPath() {
-      return (
-        (this.$store.state.offset <= 0 || this.$store.state.id <= 0) === false
-      );
+    stateIsValid() {
+      if (
+        this.$store.state.offset < 0 ||
+        this.$store.state.id <= 0 ||
+        this.$store.state.limit <= 0 ||
+        this.$store.state.limit > 64 ||
+        isNaN(this.$store.state.offset) ||
+        isNaN(this.$store.state.id) ||
+        isNaN(this.$store.state.limit) ||
+        isFinite(this.$store.state.offset) === false ||
+        isFinite(this.$store.state.id) === false ||
+        isFinite(this.$store.state.limit) === false
+      ) {
+        return false;
+      }
+      return true;
     }
   },
   methods: {
-    async loadPokemon(id = "1") {
+    fixState() {
+      if (this.stateIsValid === false) {
+        this.resetStore();
+      }
+    },
+    resetStore() {
+      this.$store.state.offset = 0;
+      this.$store.state.limit = 4;
+      this.$store.state.id = 1;
+    },
+    async loadPokemon(id = "1"): Promise<Pokemon> {
       const response = await this.axios.get(
         `${this.$store.state.apiUrl}/pokemon/${id}`
       );
@@ -40,22 +62,21 @@ export default defineComponent({
       return returnString;
     },
     async nextPokemons() {
+      this.fixState();
       this.$store.state.offset = Number(
         Number(this.$store.state.offset) + Number(this.$store.state.limit)
       );
       this.rerouteToPokedex();
     },
     async previousPokemons() {
-      if (this.isValidPath === false) {
-        this.$store.state.offset = 0;
-        return false;
-      }
+      this.fixState();
       this.$store.state.offset = Number(
         Number(this.$store.state.offset) - Number(this.$store.state.limit)
       );
       this.rerouteToPokedex();
     },
     rerouteToPokedex() {
+      this.fixState();
       this.$router.push({
         name: "Pokedex",
         params: {
@@ -65,6 +86,7 @@ export default defineComponent({
       });
     },
     rerouteToPokemon() {
+      this.fixState();
       this.$router.push({
         name: "Pokemon",
         params: {

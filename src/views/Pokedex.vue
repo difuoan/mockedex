@@ -135,6 +135,7 @@ export default defineComponent({
   async mounted() {
     this.$store.state.offset = Number(this.offset);
     this.$store.state.limit = Number(this.limit);
+    this.fixState();
     this.loadPokemons();
   },
   methods: {
@@ -148,6 +149,7 @@ export default defineComponent({
       });
     },
     async loadPokemons() {
+      this.fixState();
       this.loading = true;
       const result = await this.axios.get(
         `${this.$store.state.apiUrl}/pokemon?limit=${this.$store.state.limit}&offset=${this.$store.state.offset}`
@@ -158,6 +160,11 @@ export default defineComponent({
       const promiseArray = urlArray.map((name: string) =>
         this.axios.get(`${this.$store.state.apiUrl}/pokemon/${name}`)
       ) as Array<AxiosPromise>;
+      if (promiseArray.length <= 0) {
+        this.resetStore();
+        this.rerouteToPokedex();
+        return false;
+      }
       this.axios.all(promiseArray).then((responses: Array<AxiosResponse>) => {
         this.pokemons = responses.map(
           response => response.data as Pokemon
@@ -167,6 +174,7 @@ export default defineComponent({
     },
     rerouteToPokemonView(id: number) {
       this.$store.state.id = id;
+      this.fixState();
       this.rerouteToPokemon();
     },
     async search() {
@@ -180,13 +188,18 @@ export default defineComponent({
           const pokemon = result.data as Pokemon;
           this.$store.state.id = pokemon.id;
           this.rerouteToPokemon();
+        } else {
+          this.hintAtError();
         }
       } catch (error) {
-        this.shakeSearch = true;
-        window.setTimeout(() => {
-          this.shakeSearch = false;
-        }, 2000);
+        this.hintAtError();
       }
+    },
+    hintAtError() {
+      this.shakeSearch = true;
+      window.setTimeout(() => {
+        this.shakeSearch = false;
+      }, 2000);
     }
   }
 });

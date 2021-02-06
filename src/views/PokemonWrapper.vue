@@ -52,7 +52,7 @@ export default defineComponent({
       this.$store.state.id--;
       if (
         this.$store.state.id <= this.$store.state.offset ||
-        this.isValidPath === false
+        this.stateIsValid === false
       ) {
         this.$store.state.offset =
           this.$store.state.offset - this.$store.state.limit;
@@ -64,7 +64,7 @@ export default defineComponent({
       if (
         this.$store.state.id >
           this.$store.state.offset + this.$store.state.limit ||
-        this.isValidPath === false
+        this.stateIsValid === false
       ) {
         this.$store.state.offset =
           this.$store.state.offset + this.$store.state.limit;
@@ -76,7 +76,7 @@ export default defineComponent({
         this.$store.state.id <= this.$store.state.offset ||
         this.$store.state.id >
           this.$store.state.offset + this.$store.state.limit ||
-        this.isValidPath === false
+        this.stateIsValid === false
       ) {
         this.$store.state.offset = this.$store.state.id - 1;
       }

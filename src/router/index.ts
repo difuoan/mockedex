@@ -3,6 +3,7 @@ import Pokedex from "../views/Pokedex.vue";
 import Pokemon from "../views/Pokemon.vue";
 import PokedexWrapper from "../views/PokedexWrapper.vue";
 import PokemonWrapper from "../views/PokemonWrapper.vue";
+import NotFound from "../views/NotFound.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,6 +35,11 @@ const routes: Array<RouteRecordRaw> = [
         props: true
       }
     ]
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound
   }
 ];
 

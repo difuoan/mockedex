@@ -116,15 +116,12 @@ export default defineComponent({
   mixins: [methods],
   methods: {
     async loadPokemonWrapper() {
+      this.fixState();
       this.loading = true;
-      try {
-        await this.loadPokemon(String(this.$store.state.id)).then(pokemon => {
-          this.pokemon = pokemon;
-          this.loading = false;
-        });
-      } catch (error) {
-        this.rerouteToPokedex();
-      }
+      await this.loadPokemon(String(this.$store.state.id)).then(pokemon => {
+        this.pokemon = pokemon;
+        this.loading = false;
+      });
     }
   }
 });

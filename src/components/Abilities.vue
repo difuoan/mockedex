@@ -56,7 +56,6 @@ export default defineComponent({
     };
   },
   async mounted() {
-    // TODO: add error-handling to all the requests
     const abilitiesPromises: Array<AxiosPromise> = this.abilities.map(
       (ability: Ability) => this.axios.get(ability.ability.url)
     );
