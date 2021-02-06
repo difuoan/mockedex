@@ -21,29 +21,12 @@ import methods from "../mixins/methods";
 import { defineComponent } from "vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
-interface Type {
-  url: string;
-  slot: number;
-  type: {
-    name: string;
-    url: string;
-  };
-  names: [
-    {
-      language: {
-        name: string;
-        url: string;
-      };
-      name: string;
-    }
-  ];
-}
 
 export default defineComponent({
   name: "Types",
   data() {
     return {
-      internalTypes: [] as Array<Type>,
+      internalTypes: [] as Array<PokemonSpecies>,
       loaded: false
     };
   },
@@ -57,11 +40,11 @@ export default defineComponent({
     }
   },
   async mounted() {
-    const typesPromises: Array<AxiosPromise> = this.types.map((type: Type) =>
-      this.axios.get(type.type.url)
+    const typesPromises: Array<AxiosPromise> = this.types.map(
+      (type: PokemonSpecies) => this.axios.get(type.type.url)
     );
     const types: Array<AxiosResponse> = await this.axios.all(typesPromises);
-    this.internalTypes = types.map(response => response.data as Type);
+    this.internalTypes = types.map(response => response.data as PokemonSpecies);
     this.loaded = true;
   },
   mixins: [methods],

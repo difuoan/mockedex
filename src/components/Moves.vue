@@ -27,12 +27,6 @@ import methods from "../mixins/methods";
 import { defineComponent } from "vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
-interface Move {
-  move: {
-    name: string;
-    url: string;
-  };
-}
 export default defineComponent({
   name: "Moves",
   data() {

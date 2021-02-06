@@ -44,13 +44,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-interface FlavourText {
-  flavor_text: string;
-  version: {
-    name: string;
-    url: string;
-  };
-}
 export default defineComponent({
   name: "Descriptions",
   data() {

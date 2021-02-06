@@ -41,15 +41,6 @@ import { defineComponent } from "vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
 import Image from "../components/Image.vue";
-interface Item {
-  item: {
-    name: string;
-    url: string;
-    sprites: {
-      url: string;
-    };
-  };
-}
 
 export default defineComponent({
   name: "Items",

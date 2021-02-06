@@ -14,19 +14,6 @@
 import { defineComponent } from "vue";
 import Spinner from "./Spinner.vue";
 import methods from "../mixins/methods";
-interface Name {
-  url: string;
-  name: string;
-  names: [
-    {
-      name: string;
-      language: {
-        name: string;
-        url: string;
-      };
-    }
-  ];
-}
 
 export default defineComponent({
   name: "Name",
