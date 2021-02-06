@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-// TODO: add languages for the interface texts
+// TODO: add languages for the interface texts or replace them with icons
 export default defineComponent({
   name: "Languages",
   data() {
