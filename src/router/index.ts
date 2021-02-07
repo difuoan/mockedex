@@ -13,6 +13,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/pokedex",
     name: "PokedexWrapper",
+    redirect: "/pokedex/0/4",
     component: PokedexWrapper,
     children: [
       {
@@ -25,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/pokemon",
-    redirect: "pokedex",
+    redirect: "/pokemon/1",
     component: PokemonWrapper,
     children: [
       {

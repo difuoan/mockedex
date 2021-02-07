@@ -40,10 +40,18 @@
 // BOOTSTRAP IMPORTS END ///////////////////////////////////////////
 
 // ACTUAL STYLES START //////////////////////////////////////////////////
+* {
+  color: $gray-800;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 body,
 html {
-  color: $gray-800;
   background: $gray-800;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 // ACTUAL STYLES END //////////////////////////////////////////////////////
 

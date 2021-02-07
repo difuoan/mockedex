@@ -117,14 +117,6 @@ export default defineComponent({
       required: true
     }
   },
-  watch: {
-    "$store.state.limit": async function() {
-      await this.loadPokemons();
-    },
-    "$store.state.offset": async function() {
-      await this.loadPokemons();
-    }
-  },
   components: {
     Image,
     Types,
@@ -176,30 +168,6 @@ export default defineComponent({
       this.$store.state.id = id;
       this.fixState();
       this.rerouteToPokemon();
-    },
-    async search() {
-      try {
-        const result = await this.axios.get(
-          `${this.$store.state.apiUrl}/pokemon/${String(
-            this.pokemonToSearch
-          ).toLowerCase()}`
-        );
-        if (result.status === 200) {
-          const pokemon = result.data as Pokemon;
-          this.$store.state.id = pokemon.id;
-          this.rerouteToPokemon();
-        } else {
-          this.hintAtError();
-        }
-      } catch (error) {
-        this.hintAtError();
-      }
-    },
-    hintAtError() {
-      this.shakeSearch = true;
-      window.setTimeout(() => {
-        this.shakeSearch = false;
-      }, 2000);
     }
   }
 });

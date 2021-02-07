@@ -6,7 +6,7 @@
     <h5 class="text-white text-center m-0">
       Moves {{ movesAreOpen ? "▲" : "▼" }}
     </h5>
-    <div :class="`movesWrapper ${displayMovesClass} mt-2`">
+    <div :class="`movesWrapper ${displayMovesClass}`">
       <ol class="text-left mb-0 transition-025" v-if="loaded">
         <li v-for="move in internalMoves" :key="`pokemon_move_${move.name}`">
           {{ getValueByLanguage(move.names)[0].name }}
@@ -74,6 +74,7 @@ export default defineComponent({
     height: auto;
     overflow-y: hidden;
     &.movesAreOpen {
+      margin-top: 1rem;
       transition: all 0.5s ease-in;
       max-height: 500px;
       overflow-y: auto;

@@ -1,11 +1,14 @@
 <template>
   <div class="container py-4 text-center">
     <div class="bg-white border rounded mb-4 position-relative">
-      <h1>Mock-édex</h1>
+      <!-- app-title -->
+      <h1 class="p-0 m-0">Mock-édex</h1>
+      <!-- app-languages -->
       <languages
-        class="position-absolute top-50 right-0 mr-3 translate-y-m-50"
+        class="position-absolute top-50 right-0 mr-2 translate-y-m-50"
       />
     </div>
+    <!-- base-router-view -->
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
         <keep-alive include="PokedexWrapper,PokemonWrapper">
@@ -28,11 +31,3 @@ export default defineComponent({
   components: { Languages }
 });
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>

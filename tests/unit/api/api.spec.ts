@@ -9,11 +9,5 @@ describe("Name.vue", () => {
       expect(response.status).toStrictEqual(200);
     });
     expect(axiosSpy).toHaveBeenCalledTimes(1);
-    await axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=1&offset=0")
-      .then(response => {
-        expect(response.status).toStrictEqual(200);
-      });
-    expect(axiosSpy).toHaveBeenCalledTimes(2);
   });
 });

@@ -1,12 +1,9 @@
 <template>
-  <div
-    class="descriptions bg-primary rounded text-center cursor-pointer container p-0 m-0"
-    @click.self="nextDescription()"
-  >
+  <div class="descriptions bg-primary rounded text-center container p-0 m-0">
     <div class="row p-0 m-0">
       <div class="col-1 p-0 m-0 text-left">
         <button
-          class="left btn btn-outline-light d-inline-block transition-025 h-100 opacity-025"
+          class="left btn btn-outline-light d-inline-block cursor-pointer transition-025 h-100 opacity-025"
           @click.self="previousDescription()"
           title="Turn pokemon around"
         >
@@ -15,15 +12,17 @@
       </div>
       <div class="col">
         <h5
-          class="text-white d-inline-block mt-3"
+          class="text-white d-inline-block mt-3 cursor-pointer"
           @click.self="nextDescription()"
         >
           Description
         </h5>
-        <p class="p-0 m-0" @click.self="nextDescription()">
+        <p class="p-0 m-0 cursor-pointer" @click.self="nextDescription()">
           {{ flavourTextToDisplay.flavor_text }}
         </p>
-        <small class="d-inline-block mb-3"
+        <small
+          class="d-inline-block mb-3 cursor-pointer"
+          @click.self="nextDescription()"
           >#{{ index + 1 }}/{{ flavourTexts.length }} ({{
             flavourTextToDisplay.version.name
           }})</small
@@ -31,7 +30,7 @@
       </div>
       <div class="col-1 p-0 m-0 text-right">
         <button
-          class="right btn btn-outline-light d-inline-block transition-025 h-100 opacity-025"
+          class="right btn btn-outline-light d-inline-block transition-025 h-100 opacity-025 cursor-pointer"
           @click.self="nextDescription()"
           title="Turn pokemon around"
         >

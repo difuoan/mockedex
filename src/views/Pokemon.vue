@@ -98,11 +98,6 @@ export default defineComponent({
     Items,
     Name
   },
-  watch: {
-    "$store.state.id": async function() {
-      await this.loadPokemonWrapper();
-    }
-  },
   props: {
     id: {
       type: String,
