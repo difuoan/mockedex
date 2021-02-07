@@ -25,7 +25,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Languages from "./components/Languages.vue";
-
+/**
+ * the base-app-component used to load all other components/routes inside
+ */
 export default defineComponent({
   name: "Mockedex",
   components: { Languages }

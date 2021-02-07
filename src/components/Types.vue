@@ -21,34 +21,50 @@ import methods from "../mixins/methods";
 import { defineComponent } from "vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
-
+/**
+ * translates and displays the pokemons types based on the passed array
+ */
 export default defineComponent({
   name: "Types",
   data() {
     return {
+      /**
+       * the actual translated types
+       */
       internalTypes: [] as Array<PokemonSpecies>,
-      loaded: false
+      loaded: false // whether to display the loading-spinner or not
     };
   },
   components: {
     Spinner
   },
   props: {
+    /**
+     * the types we need to translate and then display
+     */
     types: {
       type: Object,
       required: true
     }
   },
   async mounted() {
+    // create requests based on the passed types
     const typesPromises: Array<AxiosPromise> = this.types.map(
       (type: PokemonSpecies) => this.axios.get(type.type.url)
     );
+    // handle all the created requests at the same time
     const types: Array<AxiosResponse> = await this.axios.all(typesPromises);
+    // save the response
     this.internalTypes = types.map(response => response.data as PokemonSpecies);
-    this.loaded = true;
+    this.loaded = true; // disable the loading-spinner
   },
   mixins: [methods],
   methods: {
+    // TODO: move the type-styles into a mixin or something where it won't get duplicated with the component
+    // TODO: make the type-styles into classes so we can share code between them and other places
+    /**
+     * returns the style (css) for the passed type (used to decide the design of the type-tag)
+     */
     typeStyle(stat: string) {
       switch (stat) {
         case "normal":

@@ -14,13 +14,18 @@
 import { defineComponent } from "vue";
 import Spinner from "./Spinner.vue";
 import methods from "../mixins/methods";
-
+/**
+ * translates and displays the pokemons name
+ */
 export default defineComponent({
   name: "Name",
   data() {
     return {
+      /**
+       * the translated name (actually it's a pokemon-species, but the names are on that)
+       */
       internalName: {} as () => Name,
-      loaded: false
+      loaded: false // whether to display the loading-spinner or not
     };
   },
   mixins: [methods],
@@ -28,16 +33,22 @@ export default defineComponent({
     Spinner
   },
   props: {
+    /**
+     * the passed name we need to translate
+     */
     name: {
       type: String,
       required: true
     }
   },
   async mounted() {
+    // load the pokemons-species (which holds the name)
     const pokemonSpecies = await this.axios.get(
       `${this.$store.state.apiUrl}/pokemon-species/${this.name}`
     );
+    // save the species
     this.internalName = pokemonSpecies.data;
+    // hide the loading-spinner
     this.loaded = true;
   }
 });

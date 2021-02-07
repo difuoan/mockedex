@@ -43,30 +43,38 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+/**
+ * displays one of the passed descriptions and makes the others available
+ */
 export default defineComponent({
   name: "Descriptions",
   data() {
     return {
-      index: 0
+      index: 0 // the index we use to choose the displayed description
     };
   },
   props: {
+    /**
+     * already translated flavourTexts we simply need to display
+     */
     flavourTexts: {
       type: Array as () => Array<FlavourText>,
       required: true
     }
   },
   computed: {
+    /**
+     * simply get one of the flavourTexts in the currently specified (store.state.)language based on a changable index
+     */
     flavourTextToDisplay(): FlavourText {
-      const flavourTextObject = Object.assign(
-        {},
-        this.flavourTexts[this.index]
-      ) as FlavourText;
+      const flavourTextObject = this.flavourTexts[this.index] as FlavourText;
       return flavourTextObject;
     }
   },
-
   methods: {
+    /**
+     * restarts of increases the index used to display the description
+     */
     nextDescription() {
       if (Number(this.index) >= this.flavourTexts.length - 1) {
         this.index = 0;
@@ -74,6 +82,9 @@ export default defineComponent({
         this.index++;
       }
     },
+    /**
+     * restarts of decreases the index used to display the description
+     */
     previousDescription() {
       if (Number(this.index) <= 0) {
         this.index = this.flavourTexts.length - 1;

@@ -27,12 +27,18 @@ import methods from "../mixins/methods";
 import { defineComponent } from "vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
+/**
+ * displays all the moves a pokemon can learn in the correct language
+ */
 export default defineComponent({
   name: "Moves",
   data() {
     return {
-      movesAreOpen: false,
-      loaded: false,
+      movesAreOpen: false, // whether we display the moves or not
+      loaded: false, // whether to display the loading-spinner or not
+      /**
+       * the actual translated moves
+       */
       internalMoves: [] as Array<Move>
     };
   },
@@ -41,20 +47,32 @@ export default defineComponent({
   },
   mixins: [methods],
   props: {
+    /**
+     * a pokemons moves we need to translate and display
+     */
     moves: {
       type: Array as () => Array<Move>,
       required: true
     }
   },
+  // TODO: can be made into a shared function (abilities,items,moves,...)
   async mounted() {
+    // create requests to get each move
     const movesPromises: Array<AxiosPromise> = this.moves.map((move: Move) => {
       return this.axios.get(move.move.url) as AxiosPromise;
     });
+    // handle all the requests at the same time
     const moves: Array<AxiosResponse> = await this.axios.all(movesPromises);
+    // save the moves
     this.internalMoves = moves.map(response => response.data as Move);
+    // hide the loading-spinner
     this.loaded = true;
   },
   computed: {
+    /**
+     * return a classname based on whether we display the moves or not
+     * note that we use a combination of transitions to open the moves like we desire and everything is relying on those classes
+     */
     displayMovesClass() {
       if (this.movesAreOpen === true) {
         return "movesAreOpen";
@@ -66,9 +84,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "~bootstrap/scss/_functions.scss";
-@import "../assets/scss/variables.scss";
-@import "~bootstrap/scss/_mixins.scss";
+@import "~bootstrap/scss/_functions.scss"; // import the mixins because we need media-breakpoint-up()
+@import "../assets/scss/variables.scss"; // import the variables because we need the _functions
+@import "~bootstrap/scss/_mixins.scss"; // import the mixins because we need the _functions
 .moves {
   .movesWrapper {
     height: auto;

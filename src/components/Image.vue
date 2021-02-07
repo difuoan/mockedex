@@ -22,32 +22,40 @@
 <script lang="ts">
 import Spinner from "../components/Spinner.vue";
 import { defineComponent } from "vue";
-
+/**
+ * displays an image based on the passed src
+ */
 export default defineComponent({
   name: "Image",
   data: function() {
     return {
-      loaded: false
+      loaded: false // whether we display the loading-spinner or not
     };
   },
   components: {
     Spinner
   },
   props: {
+    /**
+     * the source of the image to display
+     */
     src: {
       type: String,
       required: true
     },
+    // optional with parameter (note the necessary unit value at the end)
     width: {
       type: String,
       required: false,
       default: "100%"
     },
+    // optional height parameter (note the necessary unit value at the end)
     height: {
       type: String,
       required: false,
       default: "auto"
     },
+    // optional bool to decide whether to display the background around the spinner or not
     withBg: {
       type: Boolean,
       required: false,
@@ -55,6 +63,9 @@ export default defineComponent({
     }
   },
   watch: {
+    /**
+     * watch for changes in the image-src and display the loading-spinner if the image wasn't prepared by the browser yet
+     */
     "$props.src"() {
       if (this.isCached === false) {
         this.loaded = false;
@@ -62,6 +73,9 @@ export default defineComponent({
     }
   },
   computed: {
+    /**
+     * check whether the current image was already prepared by the browser
+     */
     isCached() {
       const image = new Image(); // create a new image
       image.src = this.src; // check whether the image is already complete
@@ -69,6 +83,9 @@ export default defineComponent({
     }
   },
   methods: {
+    /**
+     * disables the loading-spinner once the image was loaded
+     */
     onLoaded() {
       this.loaded = true;
     }

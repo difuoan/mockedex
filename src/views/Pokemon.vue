@@ -6,18 +6,23 @@
           <div class="row" v-if="pokemon.name">
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <h3 class="mb-0">
+                <!-- pokemon id -->
                 <small
                   >#{{ pad(String(pokemon.id), 4, "0", true) }}&nbsp;</small
                 >
+                <!-- pokemon-name -->
                 <Name :name="pokemon.name" />
               </h3>
+              <!-- pokemon-types -->
               <div class="mt-1">
                 <Types :types="pokemon.types" />
               </div>
+              <!-- pkemon-image -->
               <PokemonImage :sprites="pokemon.sprites" />
             </div>
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <div class="bg-primary border rounded container py-3 mb-3">
+                <!-- pokemon-height and -weight -->
                 <div class="row">
                   <div class="col">
                     <h5 class="text-white">Height</h5>
@@ -29,6 +34,7 @@
                   </div>
                 </div>
                 <hr />
+                <!-- pokemon-genus -->
                 <div class="row">
                   <div class="col">
                     <h5 class="text-white">Genus</h5>
@@ -38,22 +44,27 @@
                   </div>
                 </div>
               </div>
+              <!-- pokemon-abilities -->
               <Abilities :abilities="pokemon.abilities" />
             </div>
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
+              <!-- pokemon-stats -->
               <Stats :stats="pokemon.stats" class="mb-3" />
+              <!-- pokemon-items -->
               <Items
                 :items="pokemon.held_items"
                 v-if="pokemon.held_items.length > 0"
               />
             </div>
             <div class="col-12 mb-3">
+              <!-- pokemon-descriptions -->
               <Descriptions
                 :flavourTexts="
                   getValueByLanguage(pokemon.species.flavor_text_entries)
                 "
               />
             </div>
+            <!-- pokemon-moves -->
             <div class="col-12">
               <Moves :moves="pokemon.moves" />
             </div>
@@ -78,13 +89,18 @@ import PokemonImage from "../components/PokemonImage.vue";
 import Spinner from "../components/Spinner.vue";
 import Items from "../components/Items.vue";
 import Name from "../components/Name.vue";
-
+/**
+ * loads the specified pokemon based on the id (possibly from the url)
+ */
 export default defineComponent({
   name: "Pokemon",
   data() {
     return {
+      /**
+       * the pokemon we want to display
+       */
       pokemon: {} as Pokemon,
-      loading: true
+      loading: true // whether or not to display the loading-spinner
     };
   },
   components: {
@@ -99,22 +115,35 @@ export default defineComponent({
     Name
   },
   props: {
+    /**
+     * the id (possibly from the url) of the pokemon we want to load
+     */
     id: {
       type: String,
       required: true
     }
   },
   async mounted() {
+    // make sure we use the params (possibly from the url) as our internal state
     this.$store.state.id = Number(this.id);
+    // load the pokemon
     this.loadPokemonWrapper();
   },
   mixins: [methods],
   methods: {
+    /**
+     * just a wrapper for the real loadPokemon-function but it also enables and disables the loading-spinner
+     */
     async loadPokemonWrapper() {
-      this.fixState();
+      // make sure the state is valid
+      this.fixStateIfNecessary();
+      // enable the loading-spinner
       this.loading = true;
+      // load the pokemon
       await this.loadPokemon(String(this.$store.state.id)).then(pokemon => {
+        // save the returned pokemon
         this.pokemon = pokemon;
+        // disable the loading-spinner
         this.loading = false;
       });
     }

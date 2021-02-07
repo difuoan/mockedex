@@ -41,11 +41,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Image from "../components/Image.vue";
-
+/**
+ * displays the pokemon in all its forms which can be chosen
+ */
 export default defineComponent({
   name: "PokemonImage",
   data() {
     return {
+      /**
+       * the variable which decides which image we display
+       */
       currentImage: "front_default"
     };
   },
@@ -53,10 +58,16 @@ export default defineComponent({
     Image
   },
   props: {
+    /**
+     * all the available images
+     */
     sprites: {
       type: Object,
       required: true
     },
+    /**
+     * whether or not we want to display all the buttons to choose the sprite (or not)
+     */
     displayButtons: {
       type: Boolean,
       required: false,
@@ -64,15 +75,28 @@ export default defineComponent({
     }
   },
   methods: {
+    /**
+     * returns true if the current image depicts a shiny pokemon
+     */
     isShiny() {
       return this.currentImage.includes("shiny");
     },
+    /**
+     * returns true if the current image depicts a female pokemon
+     */
     isFemale() {
       return this.currentImage.includes("female");
     },
+    /**
+     * returns true if the current image depicts the back of a pokemon
+     */
     isBack() {
       return this.currentImage.includes("back");
     },
+    // TODO: the if-else blocks could be generalised and made into a shared function
+    /**
+     * decides which sprite comes next and sets it as the image to display
+     */
     nextImage() {
       const back = this.isBack();
       const female = this.isFemale();
@@ -107,6 +131,9 @@ export default defineComponent({
         }
       }
     },
+    /**
+     * decide whether to display the shiny or normal version of the pokemon
+     */
     shinyImage() {
       const back = this.isBack();
       const female = this.isFemale();
@@ -141,6 +168,9 @@ export default defineComponent({
         }
       }
     },
+    /**
+     * decide whether to display the female or male version of the pokemon
+     */
     swapGender() {
       const back = this.isBack();
       const female = this.isFemale();

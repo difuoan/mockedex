@@ -6,12 +6,14 @@ type DomWrapperArray = Array<DOMWrapper<HTMLElement>>;
 describe("Stats.vue", () => {
   let stats; // the stats we need to inject
   let wrapper: VueWrapper<any>; // the vue instance
+  // unmount the wrapper after each test for performance and so that jest doesn't get confused
   afterEach(() => {
     wrapper.unmount(); // don't forget to unmount the wrapper
   });
   // TEST 1 - START //////////////////////////////////////////////////////////////////////////////////////////
   it(`pass some props to the Stats component,
       then test whether they are displayed in the order we expect`, () => {
+    // prepare the stats
     stats = [
       { stat: { name: "stat 1" }, base_stat: 10 },
       { stat: { name: "stat 2" }, base_stat: 20 },
@@ -22,7 +24,7 @@ describe("Stats.vue", () => {
     ];
     // instantiate the wrapper inside the it-function so we can check on the initial state of the app
     wrapper = shallowMount(Stats, { props: { stats } });
-
+    // check the stat-names and percentages
     const smallElements = wrapper.findAll("small") as DomWrapperArray;
     expect(smallElements[0].text()).toStrictEqual("stat 1");
     expect(smallElements[1].text()).toStrictEqual("stat 2");
@@ -31,7 +33,7 @@ describe("Stats.vue", () => {
     expect(smallElements[4].text()).toStrictEqual("stat 5");
     expect(smallElements[5].text()).toStrictEqual("23%");
     expect(smallElements[6].text()).toStrictEqual("stat 6");
-
+    // check the stat-values
     const bElements = wrapper.findAll("b") as DomWrapperArray;
     expect(bElements[0].text()).toStrictEqual("10");
     expect(bElements[1].text()).toStrictEqual("20");
@@ -44,6 +46,7 @@ describe("Stats.vue", () => {
   // TEST 2 - START //////////////////////////////////////////////////////////////////////////////////////////
   it(`pass some props to the Stats component,
   then test whether they are displayed in the order we expect`, () => {
+    // prepare the stats
     stats = [
       { stat: { name: "stat 12" }, base_stat: 70 },
       { stat: { name: "stat 11" }, base_stat: 80 },
@@ -54,7 +57,7 @@ describe("Stats.vue", () => {
     ];
     // instantiate the wrapper inside the it-function so we can check on the initial state of the app
     wrapper = shallowMount(Stats, { props: { stats } });
-
+    // check the stat-names and percentages
     const smallElements = wrapper.findAll("small") as DomWrapperArray;
     expect(smallElements[0].text()).toStrictEqual("27%");
     expect(smallElements[1].text()).toStrictEqual("stat 12");
@@ -68,7 +71,7 @@ describe("Stats.vue", () => {
     expect(smallElements[9].text()).toStrictEqual("stat 8");
     expect(smallElements[10].text()).toStrictEqual("47%");
     expect(smallElements[11].text()).toStrictEqual("stat 7");
-
+    // check the stat-values
     const bElements = wrapper.findAll("b") as DomWrapperArray;
     expect(bElements[0].text()).toStrictEqual("70");
     expect(bElements[1].text()).toStrictEqual("80");
@@ -81,6 +84,7 @@ describe("Stats.vue", () => {
   // TEST 3 - START //////////////////////////////////////////////////////////////////////////////////////////
   it(`pass some props to the Stats component,
   then test whether they are displayed in the order we expect`, () => {
+    // prepare the stats
     stats = [
       { stat: { name: "stat 13" }, base_stat: 255 },
       { stat: { name: "stat 14" }, base_stat: 245 },
@@ -91,7 +95,7 @@ describe("Stats.vue", () => {
     ];
     // instantiate the wrapper inside the it-function so we can check on the initial state of the app
     wrapper = shallowMount(Stats, { props: { stats } });
-
+    // check the stat-names and percentages
     const smallElements = wrapper.findAll("small") as DomWrapperArray;
     expect(smallElements[0].text()).toStrictEqual("100%");
     expect(smallElements[1].text()).toStrictEqual("stat 13");
@@ -105,7 +109,7 @@ describe("Stats.vue", () => {
     expect(smallElements[9].text()).toStrictEqual("stat 17");
     expect(smallElements[10].text()).toStrictEqual("80%");
     expect(smallElements[11].text()).toStrictEqual("stat 18");
-
+    // check the stat-values
     const bElements = wrapper.findAll("b") as DomWrapperArray;
     expect(bElements[0].text()).toStrictEqual("255");
     expect(bElements[1].text()).toStrictEqual("245");

@@ -7,12 +7,14 @@ import NotFound from "../views/NotFound.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
+    // since we only have two routes we want both of them to have names, so we redirect from "home" right to the pokedex which takes its place
     path: "/",
     redirect: "/pokedex/0/4"
   },
   {
     path: "/pokedex",
     name: "PokedexWrapper",
+    // since this is only a wrapper we want anyone who loads it directly to be re-routed to its child
     redirect: "/pokedex/0/4",
     component: PokedexWrapper,
     children: [
@@ -26,6 +28,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/pokemon",
+    // since this is only a wrapper we want anyone who loads it directly to be re-routed to its child
     redirect: "/pokemon/1",
     component: PokemonWrapper,
     children: [
@@ -38,6 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    // anything we don't recognise will be caught by this
     path: "/:catchAll(.*)",
     name: "NotFound",
     component: NotFound

@@ -26,7 +26,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+/**
+ * displays the passed stat values and calculates the percentage relative to the max-value
+ */
 export default defineComponent({
   name: "Stats",
   props: {

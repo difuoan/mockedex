@@ -13,7 +13,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import methods from "../mixins/methods";
-
+/**
+ * a component to display when we don't know what else to do
+ * note that it contains only a slightly funny text and a link back to the pokedex-component
+ */
 export default defineComponent({
   name: "NotFound",
   mixins: [methods],

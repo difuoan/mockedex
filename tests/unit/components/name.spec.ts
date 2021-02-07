@@ -4,14 +4,15 @@ import { createStore, Store } from "vuex";
 import methods from "@/mixins/methods";
 
 describe("Name.vue", () => {
-  let name: string;
+  let name: string; // required prop
   let store: Store<{
     apiUrl: string;
     language: string;
-  }>;
-  let axios;
+  }>; // the store we'll populate with test-values in the specific tests
+  let axios; // mocked axios we'll populate in the tests
   let wrapper: VueWrapper<any>;
   let axiosSpy;
+  // unmount the wrapper after each test for performance and so that jest doesn't get confused
   afterEach(() => {
     wrapper.unmount(); // don't forget to unmount the wrapper
   });
@@ -19,7 +20,8 @@ describe("Name.vue", () => {
   // use await so jest doesn't get confused when chaining the tests
   it(`set up the Name component and check the pre-loader,
       then await the mocked axios call and check the displayed response`, async () => {
-    name = "name 2";
+    name = "name 2"; // set the prop
+    // prepare axios-mock
     axios = {
       get: async () => ({
         data: {
@@ -42,7 +44,9 @@ describe("Name.vue", () => {
         }
       })
     };
+    // spy on axios
     axiosSpy = jest.spyOn(axios, "get");
+    // prepare store
     store = createStore({
       state: {
         apiUrl: "url 1",
@@ -72,7 +76,8 @@ describe("Name.vue", () => {
   // use await so jest doesn't get confused when chaining the tests
   it(`set up the Name component and check the pre-loader,
       then await the mocked axios call and check the displayed response`, async () => {
-    name = "name 1";
+    name = "name 1"; // set the prop
+    // prepare axios-mock
     axios = {
       get: async () => ({
         data: {
@@ -95,7 +100,9 @@ describe("Name.vue", () => {
         }
       })
     };
+    // spy on axios
     axiosSpy = jest.spyOn(axios, "get");
+    // prepare store
     store = createStore({
       state: { apiUrl: "", language: "lang 2" }
     });

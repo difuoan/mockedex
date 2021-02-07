@@ -18,13 +18,7 @@
               width="1.5rem"
               class="d-inline"
             />{{ getValueByLanguage(item.names)[0].name }}</span
-          >{{
-            index + 2 >= internalItems.length
-              ? index + 1 >= internalItems.length
-                ? ""
-                : " & "
-              : ", "
-          }}
+          >{{ ampersandOrCommaSeperator(index, internalItems.length) }}
         </div>
       </div>
       <div v-else>
@@ -41,11 +35,16 @@ import { defineComponent } from "vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
 import Image from "../components/Image.vue";
-
+/**
+ * displays translated items based on the passed array
+ */
 export default defineComponent({
   name: "Items",
   mixins: [methods],
   props: {
+    /**
+     * we use this array to load the actual translated items
+     */
     items: {
       type: Array as () => Array<Item>,
       required: true
@@ -57,16 +56,23 @@ export default defineComponent({
   },
   data() {
     return {
+      /**
+       * the actual translated items
+       */
       internalItems: [] as Array<Item>,
-      loaded: false
+      loaded: false // display the loading-spinner or not
     };
   },
   async mounted() {
+    // create requests to load the extended items based on the passed array
     const itemsPromises: Array<AxiosPromise> = this.items.map((item: Item) =>
       this.axios.get(item.item.url)
     );
+    // handle all the created requests at the same time
     const items: Array<AxiosResponse> = await this.axios.all(itemsPromises);
+    // save the response.data as our extended items
     this.internalItems = items.map(response => response.data);
+    // disable the loading-spinner
     this.loaded = true;
   }
 });
