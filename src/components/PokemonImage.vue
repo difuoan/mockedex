@@ -9,7 +9,7 @@
       >
         ◄
       </button>
-      <Image :src="`${sprites[currentImage]}`" class="px-4 mx-3" />
+      <Image :src="`${sprites[currentImage]}`" class="mx-3" :width="width" />
       <button
         v-if="displayButtons"
         class="imageButton right btn btn-outline-secondary position-absolute top-50"
@@ -72,6 +72,12 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    // optional with parameter (note the necessary unit value at the end)
+    width: {
+      type: String,
+      required: false,
+      default: "96px"
     }
   },
   methods: {
