@@ -1,5 +1,5 @@
 <template>
-  <div class="pokemon text-center position-relative">
+  <div class="pokemon text-center position-relative pb-4 mb-4">
     <transition name="fade" mode="out-in">
       <div v-if="loading === false" class="text-left">
         <div class="container bg-white rounded border p-3">
@@ -55,16 +55,16 @@
                 "
               />
             </div>
-            <!-- pokemon-moves -->
-            <div class="col-12">
-              <Moves :moves="pokemon.moves" />
-            </div>
             <!-- pokemon-evolution -->
             <div class="col-12">
               <EvolutionChain
                 :url="pokemon.species.evolution_chain.url"
-                class="mt-3 border rounded bg-secondary pt-2 px-4"
+                class="border rounded bg-secondary pt-2 px-4"
               />
+            </div>
+            <!-- pokemon-moves -->
+            <div class="col-12 mt-3">
+              <Moves :moves="pokemon.moves" />
             </div>
           </div>
         </div>
