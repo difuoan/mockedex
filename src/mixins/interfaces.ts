@@ -68,3 +68,6 @@ interface PokemonSpecies extends ResultItem {
   type: ResultItem;
   names: Array<Language>;
 }
+interface Stat {
+  stat: ResultItem;
+}
