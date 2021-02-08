@@ -10,7 +10,7 @@
               v-for="pokemon in pokemons"
               :key="`pokemon_card_${pokemon.id}`"
               class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
-              @click="rerouteToPokemonView(pokemon.id)"
+              @click="rerouteToPokemonWrapper(pokemon.id)"
               :title="pokemon.name"
             >
               <div class="card">
@@ -154,6 +154,10 @@ export default defineComponent({
     this.loadPokemons();
   },
   methods: {
+    rerouteToPokemonWrapper(id: number) {
+      this.$store.state.id = id;
+      this.rerouteToPokemon();
+    },
     /**
      * re-route to the new route once the user changes the limit (because the limit is also represented in the url)
      */
@@ -201,17 +205,6 @@ export default defineComponent({
         // disable the loading-spinner
         this.loading = false;
       });
-    },
-    /**
-     * re-routes to the specified pokemon
-     */
-    rerouteToPokemonView(id: number) {
-      // update the store with the passed id
-      this.$store.state.id = id;
-      // make sure the state is still valid
-      this.fixStateIfNecessary();
-      // reroute to the pokemon-component
-      this.rerouteToPokemon();
     }
   }
 });
