@@ -219,6 +219,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .card {
+  z-index: 999;
   cursor: pointer;
   &:hover {
     animation: bounce 2s infinite;
