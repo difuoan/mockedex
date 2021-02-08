@@ -14,7 +14,12 @@ interface Pokemon {
   id: number;
   order: number;
   forms: Array<ResultItem>;
-  sprites: Array<string>;
+  sprites: {
+    front_default: string;
+  };
+  species: {
+    evolution_chain: ResultItem;
+  };
 }
 /**
  * small interface for the ability using the basic resultItem
