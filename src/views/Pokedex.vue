@@ -1,7 +1,7 @@
 <template>
   <div class="pokedex">
     <div class="clear"></div>
-    <div class="position-relative pt-3">
+    <div class="position-relative">
       <transition name="fade" mode="out-in">
         <div v-if="loading === false" class="mb-4 pb-4">
           <div class="row justify-content-md-center">
@@ -40,9 +40,9 @@
           </div>
           <div class="row">
             <!-- back button -->
-            <div class="col-3">
+            <div class="col-12 col-md-3 mb-3">
               <button
-                class="btn btn-primary float-left"
+                class="btn btn-primary btn-block"
                 v-if="$store.state.offset > 0"
                 @click="previousPokemons()"
                 title="Back"
@@ -52,14 +52,16 @@
               <button
                 v-else
                 title="Back"
-                class="btn btn-primary float-left"
+                class="btn btn-primary btn-block"
                 disabled="disabled"
               >
                 ◄
               </button>
             </div>
             <!-- searchfield -->
-            <div :class="`col-6 ${shakeSearch === true ? 'shake' : ''}`">
+            <div
+              :class="`col-12 col-md-6 ${shakeSearch === true ? 'shake' : ''}`"
+            >
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="limit">Limit</label>
@@ -79,10 +81,10 @@
               </div>
             </div>
             <!-- next button -->
-            <div class="col-3">
+            <div class="col-12 col-md-3 mb-3">
               <button
                 title="Next"
-                class="btn btn-primary float-right"
+                class="btn btn-primary btn-block"
                 @click="nextPokemons()"
               >
                 ►

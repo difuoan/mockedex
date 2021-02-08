@@ -1,35 +1,42 @@
 <template>
   <div class="wrapper">
-    <!-- back button -->
-    <button
-      class="btn btn-primary float-left"
-      v-if="$store.state.id > 1"
-      @click="previous()"
-      title="Back"
-    >
-      ◄
-    </button>
-    <button
-      v-else
-      class="btn btn-primary float-left"
-      disabled="disabled"
-      title="Back"
-    >
-      ◄
-    </button>
-    <!-- next button -->
-    <button class="btn btn-primary float-right" @click="next()" title="Next">
-      ►
-    </button>
-    <!-- to pokedex button -->
-    <button
-      class="btn btn-primary mx-auto mb-3 d-block"
-      @click="back()"
-      title="Back to pokédex"
-    >
-      ▲
-    </button>
-    <div class="clear"></div>
+    <div class="row">
+      <div class="col-12 col-md-3 mb-3">
+        <!-- back button -->
+        <button
+          class="btn btn-primary btn-block"
+          v-if="$store.state.id > 1"
+          @click="previous()"
+          title="Back"
+        >
+          ◄
+        </button>
+        <button
+          v-else
+          class="btn btn-primary btn-block"
+          disabled="disabled"
+          title="Back"
+        >
+          ◄
+        </button>
+      </div>
+      <div class="col-12 col-md-6 mb-3">
+        <!-- to pokedex button -->
+        <button
+          class="btn btn-primary btn-block"
+          @click="back()"
+          title="Back to pokédex"
+        >
+          ▲
+        </button>
+      </div>
+      <div class="col-12 col-md-3 mb-3">
+        <!-- next button -->
+        <button class="btn btn-primary btn-block" @click="next()" title="Next">
+          ►
+        </button>
+      </div>
+    </div>
     <!-- router-view -->
     <router-view v-slot="routerParams">
       <transition name="fade" mode="out-in">
