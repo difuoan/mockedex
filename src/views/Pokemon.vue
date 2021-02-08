@@ -4,22 +4,11 @@
       <div v-if="loading === false" class="text-left">
         <div class="container bg-white rounded border p-3">
           <div class="row" v-if="pokemon.name">
-            <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
-              <h3 class="mb-0">
-                <!-- pokemon id -->
-                <small
-                  >#{{ pad(String(pokemon.id), 4, "0", true) }}&nbsp;</small
-                >
-                <!-- pokemon-name -->
-                <Name :name="pokemon.name" />
-              </h3>
-              <!-- pokemon-types -->
-              <div class="mt-1">
-                <Types :types="pokemon.types" />
-              </div>
-              <!-- pkemon-image -->
-              <PokemonImage :sprites="pokemon.sprites" />
-            </div>
+            <PokemonCard
+              :pokemon="pokemon"
+              :width="'192px'"
+              class="col-12 col-md-6 col-lg-4 text-center mb-3"
+            />
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <div class="bg-primary border rounded container py-3 mb-3">
                 <!-- pokemon-height and -weight -->
@@ -49,11 +38,12 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">
               <!-- pokemon-stats -->
-              <Stats :stats="pokemon.stats" class="mb-3" />
+              <Stats :stats="pokemon.stats" />
               <!-- pokemon-items -->
               <Items
                 :items="pokemon.held_items"
                 v-if="pokemon.held_items.length > 0"
+                class="mt-3"
               />
             </div>
             <div class="col-12 mb-3">
@@ -67,6 +57,13 @@
             <!-- pokemon-moves -->
             <div class="col-12">
               <Moves :moves="pokemon.moves" />
+            </div>
+            <!-- pokemon-evolution -->
+            <div class="col-12">
+              <EvolutionChain
+                :url="pokemon.species.evolution_chain.url"
+                class="mt-3 border rounded bg-secondary pt-2 px-4"
+              />
             </div>
           </div>
         </div>
@@ -82,13 +79,12 @@ import "../mixins/interfaces";
 import methods from "../mixins/methods";
 import Stats from "../components/Stats.vue";
 import Moves from "../components/Moves.vue";
-import Types from "../components/Types.vue";
 import Abilities from "../components/Abilities.vue";
 import Descriptions from "../components/Descriptions.vue";
-import PokemonImage from "../components/PokemonImage.vue";
 import Spinner from "../components/Spinner.vue";
 import Items from "../components/Items.vue";
-import Name from "../components/Name.vue";
+import EvolutionChain from "../components/EvolutionChain.vue";
+import PokemonCard from "../components/PokemonCard.vue";
 /**
  * loads the specified pokemon based on the id (possibly from the url)
  */
@@ -106,13 +102,12 @@ export default defineComponent({
   components: {
     Stats,
     Moves,
-    Types,
     Abilities,
     Descriptions,
-    PokemonImage,
     Spinner,
+    EvolutionChain,
     Items,
-    Name
+    PokemonCard
   },
   props: {
     /**
@@ -140,12 +135,14 @@ export default defineComponent({
       // enable the loading-spinner
       this.loading = true;
       // load the pokemon
-      await this.loadPokemon(String(this.$store.state.id)).then(pokemon => {
-        // save the returned pokemon
-        this.pokemon = pokemon;
-        // disable the loading-spinner
-        this.loading = false;
-      });
+      await this.loadPokemon(String(this.$store.state.id)).then(
+        async pokemon => {
+          // save the returned pokemon
+          this.pokemon = pokemon;
+          // disable the loading-spinner
+          this.loading = false;
+        }
+      );
     }
   }
 });
