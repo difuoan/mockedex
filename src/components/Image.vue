@@ -1,5 +1,8 @@
 <template>
-  <div class="image imagePlaceholder position-relative m-auto">
+  <div
+    class="image imagePlaceholder position-relative m-auto"
+    :style="`width: ${width}; height: ${height};`"
+  >
     <img
       :src="src"
       @load="onLoaded()"
@@ -47,7 +50,7 @@ export default defineComponent({
     width: {
       type: String,
       required: false,
-      default: "100%"
+      default: "96px"
     },
     // optional height parameter (note the necessary unit value at the end)
     height: {
@@ -95,8 +98,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .imagePlaceholder {
-  width: 257px;
-  height: 257px;
+  width: 96px;
+  height: 96px;
 }
 .spinnerWrapper {
   transform: translate(-50%, -50%);
