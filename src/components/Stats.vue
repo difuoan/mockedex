@@ -80,30 +80,33 @@ export default defineComponent({
     this.loading = false;
   }
 });
+// TODO: height of stuff should be guessed better so that the interface doesn't move around so much
 </script>
 
 <style scoped lang="scss">
-.statWrapper {
-  width: 66%;
-  height: 106px;
-  margin: auto;
-  padding: 3px;
-  .statBlock {
-    transform-origin: 50% 100%;
-    width: calc(100% - 6px);
-    bottom: 3px;
-    background: rgb(22, 255, 0);
-    background: linear-gradient(
-      0deg,
-      rgba(255, 0, 0, 1) 0px,
-      rgba(255, 128, 0, 1) 25px,
-      rgba(22, 255, 0, 1) 50px,
-      rgba(241, 255, 0, 1) 75px
-    );
+.stats {
+  min-height: 300px;
+  .statWrapper {
+    width: 66%;
+    height: 106px;
+    margin: auto;
+    padding: 3px;
+    .statBlock {
+      transform-origin: 50% 100%;
+      width: calc(100% - 6px);
+      bottom: 3px;
+      background: rgb(22, 255, 0);
+      background: linear-gradient(
+        0deg,
+        rgba(22, 255, 0, 1) 0px,
+        rgba(255, 128, 0, 1) 50px,
+        rgba(255, 0, 0, 1) 100px
+      );
+    }
   }
-}
-.statName {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  .statName {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
 }
 </style>

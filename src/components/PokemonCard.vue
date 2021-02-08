@@ -15,6 +15,7 @@
       :sprites="pokemon.sprites"
       :displayButtons="displayButtons"
       :width="width"
+      :height="height"
     />
   </div>
 </template>
@@ -50,6 +51,12 @@ export default defineComponent({
     },
     // optional with parameter (note the necessary unit value at the end)
     width: {
+      type: String,
+      required: false,
+      default: "96px"
+    },
+    // optional with parameter (note the necessary unit value at the end)
+    height: {
       type: String,
       required: false,
       default: "96px"

@@ -16,6 +16,7 @@
               :src="item.sprites.default"
               :withBg="false"
               width="1.5rem"
+              height="1.5rem"
               class="d-inline"
             />{{ getValueByLanguage(item.names)[0].name }}</span
           >{{ ampersandOrCommaSeperator(index, internalItems.length) }}

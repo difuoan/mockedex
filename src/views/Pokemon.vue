@@ -7,6 +7,7 @@
             <PokemonCard
               :pokemon="pokemon"
               :width="'192px'"
+              :height="'192px'"
               class="col-12 col-md-6 col-lg-4 text-center mb-3"
             />
             <div class="col-12 col-md-6 col-lg-4 text-center mb-3">

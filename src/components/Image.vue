@@ -56,7 +56,7 @@ export default defineComponent({
     height: {
       type: String,
       required: false,
-      default: "auto"
+      default: "96px"
     },
     // optional bool to decide whether to display the background around the spinner or not
     withBg: {

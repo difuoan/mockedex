@@ -79,3 +79,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.evolutionChain {
+  min-height: 212px;
+}
+</style>

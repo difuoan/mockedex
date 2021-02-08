@@ -69,8 +69,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .pokemonCard {
+  min-height: 96px;
   &:hover {
     animation: bounce 2s infinite;
     animation-fill-mode: both;
