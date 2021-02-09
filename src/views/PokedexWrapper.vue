@@ -21,25 +21,24 @@
         </button>
         <!-- TODO: add a real icon-library and replace the spcial-chars -->
       </div>
-      <!-- searchfield -->
-      <div
-        :class="`col-12 col-md-6 ${shakeSearch === true ? 'shake' : ''} mb-3`"
-      >
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="# || id"
-            aria-label="pokémon to search"
-            aria-describedby="pokesearch"
-            @keydown.enter="search()"
-            v-model="pokemonToSearch"
-          />
-          <div class="input-group-append cursor-pointer" @click="search()">
-            <button class="btn btn-primary" id="pokesearch">
-              🔎
-            </button>
+      <!-- limit -->
+      <div class="col-12 col-md-6 d-none d-md-block">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="limit">Limit</label>
           </div>
+          <select
+            class="custom-select"
+            id="limit"
+            v-model="$store.state.limit"
+            @change="changeLimit"
+          >
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+            <option value="64">64</option>
+          </select>
         </div>
       </div>
       <!-- next button -->

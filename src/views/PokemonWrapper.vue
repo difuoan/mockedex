@@ -1,6 +1,16 @@
 <template>
   <div class="wrapper">
     <div class="row">
+      <div class="col-12 col-md-6 mb-3 d-block d-md-none">
+        <!-- to pokedex button -->
+        <button
+          class="btn btn-primary btn-block"
+          @click="back()"
+          title="Back to pokédex"
+        >
+          ▲
+        </button>
+      </div>
       <div class="col-12 col-md-3 mb-3">
         <!-- back button -->
         <button
@@ -20,7 +30,7 @@
           ◄
         </button>
       </div>
-      <div class="col-12 col-md-6 mb-3">
+      <div class="col-12 col-md-6 mb-3 d-none d-md-block">
         <!-- to pokedex button -->
         <button
           class="btn btn-primary btn-block"

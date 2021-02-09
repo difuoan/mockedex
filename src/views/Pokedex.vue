@@ -41,10 +41,19 @@
                 ◄
               </button>
             </div>
-            <!-- searchfield -->
-            <div
-              :class="`col-12 col-md-6 ${shakeSearch === true ? 'shake' : ''}`"
-            >
+            <div class="col-12 col-md-6 d-none d-md-block"></div>
+            <!-- next button -->
+            <div class="col-12 col-md-3 mb-3">
+              <button
+                title="Next"
+                class="btn btn-primary btn-block"
+                @click="nextPokemons()"
+              >
+                ►
+              </button>
+            </div>
+            <!-- limit -->
+            <div class="col-12 col-md-6 d-block d-md-none">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="limit">Limit</label>
@@ -62,16 +71,6 @@
                   <option value="64">64</option>
                 </select>
               </div>
-            </div>
-            <!-- next button -->
-            <div class="col-12 col-md-3 mb-3">
-              <button
-                title="Next"
-                class="btn btn-primary btn-block"
-                @click="nextPokemons()"
-              >
-                ►
-              </button>
             </div>
           </div>
         </div>
