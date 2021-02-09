@@ -10,32 +10,15 @@
               v-for="pokemon in pokemons"
               :key="`pokemon_card_${pokemon.id}`"
               class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
-              @click="rerouteToPokemonWrapper(pokemon.id)"
               :title="pokemon.name"
             >
-              <div class="card">
-                <!-- pokemon number-id -->
-                <small class="mt-3">
-                  #{{ pad(String(pokemon.id), 4, "0", true) }}
-                </small>
-                <!-- pokemon image -->
-                <Image
-                  :src="pokemon.sprites['front_default']"
-                  class="card-img-top"
-                />
-                <div class="card-body pt-0">
-                  <!-- pokemon name -->
-                  <h5 class="card-title p-0 m-0 text-bold">
-                    <Name :name="pokemon.name" />
-                  </h5>
-                  <!-- pokemon text-id -->
-                  <small class="mb-2 d-inline-block"
-                    >id: <b>{{ pokemon.name }}</b></small
-                  >
-                  <!-- pokemon types -->
-                  <Types :types="pokemon.types" />
-                </div>
-              </div>
+              <PokemonCard
+                :pokemon="pokemon"
+                class="card-img-top border bg-white cursor-pointer"
+                @click="rerouteToPokemonWrapper(pokemon.id)"
+                :displayButtons="false"
+                :displayTypes="false"
+              />
             </div>
           </div>
           <div class="row">
@@ -102,11 +85,9 @@
 import { defineComponent } from "vue";
 import "../mixins/interfaces";
 import methods from "../mixins/methods";
-import Image from "../components/Image.vue";
-import Types from "../components/Types.vue";
 import { AxiosPromise, AxiosResponse } from "axios";
 import Spinner from "../components/Spinner.vue";
-import Name from "../components/Name.vue";
+import PokemonCard from "../components/PokemonCard.vue";
 /**
  * displays multiple pokemons at the same time based on the (store.state.)offset and (store.state.)limit
  */
@@ -140,10 +121,8 @@ export default defineComponent({
     }
   },
   components: {
-    Image,
-    Types,
-    Spinner,
-    Name
+    PokemonCard,
+    Spinner
   },
   mixins: [methods],
   async mounted() {
