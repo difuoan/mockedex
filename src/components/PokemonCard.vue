@@ -2,7 +2,7 @@
   <div class="pokemonCard">
     <h3 class="mb-0">
       <!-- pokemon id -->
-      <small>#{{ pad(String(pokemon.id), 4, "0", true) }}&nbsp;</small>
+      <small>#{{ pad(String(pokemon.order), 4, "0", true) }}&nbsp;</small>
       <!-- pokemon-name -->
       <Name :name="pokemon.name" />
     </h3>
